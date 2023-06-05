@@ -19,9 +19,10 @@ def feature_engineering(X: pd.DataFrame) -> pd.DataFrame
     psychopathy_Avg = psych_df.mean(axis = 1).round(3),
     machievellianism_Avg = mach_df.mean(axis = 1).round(3)
 
-
-
-
+    # Making the new columns for the dataframe
+    X['Narcissism_Avg'] = narcissism_Avg
+    X['Psychopathy_Avg'] = psychopathy_Avg
+    X['Machiavellianism_Avg'] = machievellianism_Avg
 
 
     ### Buckets (keep as integers) (new column per trait)
