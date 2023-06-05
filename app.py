@@ -1,0 +1,3 @@
+'''
+Creates the interface (streamlit)
+'''
