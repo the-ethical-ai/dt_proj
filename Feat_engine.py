@@ -1,7 +1,10 @@
 '''
 Initial feature engineering function
 '''
+# Packages/Libraries Used
 import pandas as pd
+from sklearn.preprocessing import OneHotEncoder
+
 
 
 def feature_engineering(X: pd.DataFrame) -> pd.DataFrame
@@ -42,7 +45,6 @@ def feature_engineering(X: pd.DataFrame) -> pd.DataFrame
     X['Narcissism_Category'] = narc_cats
     X['Psychopathy_Category'] = psych_cats
     X['Machiavellianism_Category'] = mach_cats
-
 
     ### Returning the dataframe
     return X
