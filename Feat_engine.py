@@ -35,7 +35,7 @@ def feature_engineering(X: pd.DataFrame) -> pd.DataFrame
     psych_cats = [] # same idea
     mach_cats = []  # same idea
 
-    # Rounding each score and adding the rounded value to the dataframe as a new column
+    # Rounding each score and adding the rounded value to the respective lists
     for i in range(len(narcissism_Avg)):
         narc_cats.append(narcissism_Avg[i].round())
         psych_cats.append(psychopathy_Avg[i].round())
