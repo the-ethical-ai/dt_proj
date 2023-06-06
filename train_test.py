@@ -11,7 +11,7 @@ def train_test(X: pd.DataFrame):
 
     '''
     1. Creates 3 new dataframe (one for each targeted trait)
-    2. Split each dataset into train-validation-test sets (70/30 train/test; 70/30 train/validation)
+    2. Split each dataset into train-validation-test sets (70/30 train/test; 80/20 train/validation)
 
     Feature Dataframes Naming Format: X_psych, X_mach, X_narc
     Targets Naming Format: Y_psych, Y_mach, Y_narc
@@ -30,7 +30,7 @@ def train_test(X: pd.DataFrame):
             X_psych[f'{i}'] = X[i]
 
     # Creating the target
-    Y_psych = X['Psychopathy_Category']
+    y_psych = X['Psychopathy_Category']
 
 
     ### (2) Create the dataframe with average narcissism as target
@@ -44,7 +44,7 @@ def train_test(X: pd.DataFrame):
             X_narc[f'{i}'] = X[i]
 
     # Creating the target
-    Y_narc = X['Narcissism_Category']
+    y_narc = X['Narcissism_Category']
 
 
     ### (3) Create the dataframe with average Machiavellianism as target
@@ -58,24 +58,44 @@ def train_test(X: pd.DataFrame):
             X_mach[f'{i}'] = X[i]
 
     # Creating the target
-    Y_mach = X['Machiavellianism_Category']
+    y_mach = X['Machiavellianism_Category']
 
 
     ### Splitting (1)
 
+    # train-test split
+    X_train_psych, X_test_psych, y_train_psych, y_test_psych = train_test_split(
+        X_psych, y_psych, test_size = 0.3, random_state = 84)
 
-
+    # train-validation split
+    X_train_psych, X_val_psych, y_train_psych, y_val_psych = train_test_split(
+        X_train_psych, y_train_psych, test_size = 0.2, random_state = 84
+    )
 
     ### Splitting (2)
+    X_train_narc, X_test_narc, y_train_narc, y_test_narc = train_test_split(
+        X_narc, y_narc, test_size=0.3, random_state=84
+    )
 
-
-
+    X_train_narc, X_val_narc, y_train_narc, y_val_narc = train_test_split(
+        X_train_narc, y_train_narc, test_size=0.2, random_state=84
+    )
 
     ### Splitting (3)
+    X_train_mach, X_test_mach, y_train_mach, y_test_mach = train_test_split(
+        X_mach, y_mach, test_size=0.3, random_state=84
+    )
 
-
-
+    X_train_mach, X_val_mach, y_train_mach, y_val_mach = train_test_split(
+        X_train_mach, y_train_mach, test_size=0.2, random_state=84
+    )
 
     ### RETURN DICTIONARY OF LISTS
         ### 3 X_trains, X_tests, X_validation
         ### 3 y_train, validations, and tests
+    return {'X_trains': [X_train_psych, X_train_narc, X_train_mach],
+            'X_tests': [X_test_psych, X_test_narc, X_test_mach],
+            'X_validations': [X_val_psych, X_val_narc, X_val_mach],
+            'y_trains': [y_train_psych, y_train_narc, y_train_mach],
+            'y_tests': [y_test_psych, y_test_narc, y_test_mach],
+            'y_vals': [y_val_psych, y_val_narc, y_val_mach]}
