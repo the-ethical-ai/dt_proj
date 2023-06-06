@@ -37,7 +37,8 @@ questions = ["It's not wise to tell your secrets.",
              "People who mess with me always regret it.",
              "I have never gotten into trouble with the law.",
              "I enjoy having sex with people I hardly know.",
-             "I’ll say anything to get what I want."]
+             "I’ll say anything to get what I want.",
+             "Are you a US citizen?"]
 
 def update(select):
         answers.append(int(select))
