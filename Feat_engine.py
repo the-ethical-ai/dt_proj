@@ -3,8 +3,6 @@ Initial feature engineering function
 '''
 # Packages/Libraries Used
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
-
 
 
 def feature_engineering(X: pd.DataFrame) -> pd.DataFrame
