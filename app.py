@@ -1,3 +1,12 @@
+#sys.path.insert(0, "..")
+import pandas as pd
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
+from params import DATA_PATH
+from preprocess import preprocess
+from Feat_engine import feature_engineering
+
 '''
 Creates the interface (streamlit)
 '''
@@ -58,4 +67,54 @@ def show_q_a(i):
         name = 'Continue' if i < 26 else 'Submit'
         st.button(name, on_click=update, args=select)
 
-show_q_a(i)
+# show_q_a(i)
+
+def show_plots():
+    df = pd.read_csv(DATA_PATH, delimiter = '\t')
+    #df.head()
+
+    df_after_preprocess = preprocess(df)
+    df_after_featureng = feature_engineering(df_after_preprocess)
+
+    #Avearges
+    #df_after_featureng
+    df_average = df_after_featureng.mean(axis=0)
+    df_average_traits = df_average.iloc[:27]
+    average_df = pd.DataFrame(df_average_traits)
+
+    fig = px.bar(average_df,title="Average score for each question")
+    fig.update_layout(xaxis_title="Average scores", yaxis_title="Questions")
+    fig.update_traces(marker=dict(size=12,
+                                line=dict(width=2,
+                                            color='DarkSlateGrey')),
+                                            selector=dict(mode='markers'))
+
+
+    # Display the bar chart in Streamlit
+    st.plotly_chart(fig)
+
+    fig2 = go.Figure(go.Indicator(
+        mode = "number+gauge+delta",
+        gauge = {'shape': "bullet"},
+        delta = {'reference': 4.3},
+        domain = {'x': [0.1, 1], 'y': [0.2, 0.9]},
+        value = 5,
+        title = {'text': "Average score"}))
+
+    st.plotly_chart(fig2)
+
+    fig3 = go.Figure(go.Indicator(
+        mode="number+delta",
+        value=3,
+        number={'suffix': "", 'prefix': "Your score: ", 'font': {'size': 52}},
+        delta={'position': "bottom", 'reference': 4},
+        title={'text': " average score for question"}))
+
+    # Update layout
+    fig3.update_layout(paper_bgcolor="lightgray",)
+    st.plotly_chart(fig3)
+
+if st.button('Show Plots'):
+    show_plots()
+else:
+    show_q_a(i)
