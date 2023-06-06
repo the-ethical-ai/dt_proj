@@ -24,12 +24,14 @@ def preprocess(X: pd.DataFrame) -> pd.DataFrame:
 
     # Remove the "country" column
     df_final = df_afterremove.drop("country", axis=1)
-
+    column_names = list(df_final.columns[:-1])
     # Scale the remaining features using StandardScaler
     scaler = StandardScaler()
-    df_final_scaled = scaler.fit_transform(df_final)
+    df_final_scaled = scaler.fit_transform(df_final.iloc[:, :-1])
 
     # Convert the scaled array back to a DataFrame
-    df_final_final = pd.DataFrame(df_final_scaled)
+    df_final_final = pd.DataFrame(df_final_scaled,columns=column_names)
+    # final_dataframe = df_final_final.merge(df_final[["US_resident"]])
+    final_dataframe = df_final_final.merge(df_final[["US_resident"]], left_index=True, right_index=True)
 
-    return df_final_final
+    return final_dataframe
