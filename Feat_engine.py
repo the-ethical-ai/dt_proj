@@ -5,7 +5,7 @@ Initial feature engineering function
 import pandas as pd
 
 
-def feature_engineering(X: pd.DataFrame) -> pd.DataFrame
+def feature_engineering(X: pd.DataFrame) -> pd.DataFrame:
 
     ### Compute row averages per trait (new column per average)
     ### Column name format: traitType_Avg
