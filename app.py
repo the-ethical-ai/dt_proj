@@ -35,13 +35,28 @@ def show_questions_get_answers():
                  "I enjoy having sex with people I hardly know ",
                  "I’ll say anything to get what I want.]"]
 
-    for q in questions:
-        option = st.selectbox(q, ('Select a number', '1', '2', '3', '4', '5'))
-        st.write('You selected:', option)
+    for i, q in enumerate(questions):
+        option = st.selectbox(f"{i+1})  {q}", ('Select a number', '1', '2', '3', '4', '5'))
         # print('option', option)
         if option != 'Select a number':
+            st.write('You selected:', option)
             answers.append(int(option))
             # print('answers', answers)
+
+    # Add custom CSS to align button to the right
+    st.markdown(
+        """
+        <style>
+        .st-bk {
+            width: 200px;
+        }
+        """,
+        unsafe_allow_html=True
+    )
+
+    if st.button('See your results') and answers == []:
+        # Perform validation
+        st.error('You must choose a number')
 
     return answers # a list of numbers
 
