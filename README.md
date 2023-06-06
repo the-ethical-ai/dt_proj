@@ -13,6 +13,7 @@ Available June 16th, 2023
 
 - Python (EDA, data visualization, machine learning, user-interface, api-creation)
 - GitHub (project organization, version control)
+- Jupyter Notebook (code testing)
 
 **Team Overview:**
 
