@@ -29,6 +29,10 @@ def train_test(X: pd.DataFrame):
         if i not in psych_questions:
             X_psych[f'{i}'] = X[i]
 
+    # dropping non-relevant columns
+    X_psych.drop(columns=['Psychopathy_Avg', 'Narcissism_Category',
+                          'Psychopathy_Category', 'Machiavellianism_Category'])
+
     # Creating the target
     y_psych = X['Psychopathy_Category']
 
@@ -43,6 +47,10 @@ def train_test(X: pd.DataFrame):
         if i not in narc_questions:
             X_narc[f'{i}'] = X[i]
 
+    # dropping non-relevant columns
+    X_narc.drop(columns=['Narcissism_Avg', 'Narcissism_Category',
+                          'Psychopathy_Category', 'Machiavellianism_Category'])
+
     # Creating the target
     y_narc = X['Narcissism_Category']
 
@@ -56,6 +64,10 @@ def train_test(X: pd.DataFrame):
     for i in X.columns:
         if i not in mach_questions:
             X_mach[f'{i}'] = X[i]
+
+    # dropping non-relevant columns
+    X_mach.drop(columns=['Machiavellianism_Avg', 'Narcissism_Category',
+                          'Psychopathy_Category', 'Machiavellianism_Category'])
 
     # Creating the target
     y_mach = X['Machiavellianism_Category']
