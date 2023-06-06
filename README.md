@@ -16,5 +16,5 @@ Available June 16th, 2023
 
 **Team Overview:**
 
-- **Team Size:** 4
+- **Team Members:** Tyler Chang, Laura Schopp, Imge Ildan, and Saikot Das Joy
 - **Project Development Time:** 9 days
