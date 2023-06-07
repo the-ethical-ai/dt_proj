@@ -45,5 +45,7 @@ def baseline(train_test_Dict):
     baseline_val_accuracy_narc = accuracy_score(y_val_narc, y_pred_val_narc)
     baseline_val_accuracy_mach = accuracy_score(y_val_mach, y_pred_val_mach)
 
-
+    print("baseline_val_accuracy_psych:", baseline_val_accuracy_psych)
+    print("baseline_val_accuracy_narc:", baseline_val_accuracy_narc)
+    print("baseline_val_accuracy_mach:", baseline_val_accuracy_mach)
     return baseline_val_accuracy_psych, baseline_val_accuracy_narc, baseline_val_accuracy_mach
