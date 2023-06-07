@@ -9,10 +9,9 @@ from sklearn.metrics import accuracy_score
 
 def eval_model(sets: dict) -> dict:
     ### Getting each of the models
-    models = model(sets)
-    psych_model = models['Psychopathy_Model']
-    narc_model = models['Narcissism_Model']
-    mach_model = models['Machiavellianism_Model']
+    psych_model = sets['Psychopathy_Model']
+    narc_model = sets['Narcissism_Model']
+    mach_model = sets['Machiavellianism_Model']
 
     ### Getting the test sets
     X_test_psych = sets['test_sets'][0]
