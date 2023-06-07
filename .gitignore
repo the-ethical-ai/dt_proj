@@ -1,2 +1,3 @@
 data/
 tester_notebook.ipynb
+__pycache__/
