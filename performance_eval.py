@@ -42,7 +42,7 @@ def eval_model(sets: dict) -> dict:
             'Machiavellianism_Model_Accuracy': mach_model_score}
 
 
-def pred(sets: dict, user_answers: dict):
+def pred(sets: dict, user_answers: list):
 
     ### Call the model
     models = model(sets)
@@ -50,6 +50,7 @@ def pred(sets: dict, user_answers: dict):
     narc_model = models['Narcissism_Model']
     mach_model = models['Machiavellianism_Model']
 
-
+    y_pred_psych = psych_model.predict(user_answers[:18])
 
     ### RETURN 3 predicted classes based on user's answers.
+    return y_pred_psych
