@@ -34,5 +34,20 @@ def preprocess(X: pd.DataFrame) -> pd.DataFrame:
 
     # final_dataframe = df_final_final.merge(df_final[["US_resident"]], left_index=True, right_index=True)
 
+    ### Flipping the values for N2, N6, N8, P2, P4, and P7
+    flip_cols = ['N2', 'N6', 'N8', 'P2', 'P4', 'P7']
+
+    for col in flip_cols:
+        for i in df_final[col]:
+            if df_final[col][i] == 1:
+                df_final[col][i] = 5
+            elif df_final[col][i] == 5:
+                df_final[col][i] = 1
+            elif df_final[col][i] == 4:
+                df_final[col][i] = 2
+            elif df_final[col][i] == 2:
+                df_final[col][i] = 4
+
+
     # return final_dataframe
     return df_final

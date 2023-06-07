@@ -18,10 +18,41 @@ def feature_engineering(X: pd.DataFrame) -> pd.DataFrame:
     X['Psychopathy_Avg'] = psych_df.mean(axis=1).round(3)
     X['Machiavellianism_Avg'] = mach_df.mean(axis=1).round(3)
 
-    # Buckets (keep as integers) (new column per trait)
-    # Round to the closest integer (<.5, down; >=.5, up)
-    X['Narcissism_Category'] = X['Narcissism_Avg'].round().astype(int)
-    X['Psychopathy_Category'] = X['Psychopathy_Avg'].round().astype(int)
-    X['Machiavellianism_Category'] = X['Machiavellianism_Avg'].round().astype(int)
+    # -1 means below typical range
+    # 0 means typical range
+    # 1 means above typical range
+
+    ### Making narcissism category
+    tmp = []
+    for i in X['Narcissism_Avg']:
+        if i < 2.222:
+            tmp.append(-1)
+        elif i >= 2.222 and i < 3.778:
+            tmp.append(0)
+        else:
+            tmp.append(1)
+    X['Narcissism_Category'] = tmp
+
+    ### Making psychopathy category
+    tmp = []
+    for i in X['Psychopathy_Avg']:
+        if i < 2:
+            tmp.append(-1)
+        elif i >= 2 and i < 4:
+            tmp.append(0)
+        else:
+            tmp.append(1)
+    X['Psychopathy_Category'] = tmp
+
+    ### Making machiavellian category
+    tmp = []
+    for i in X['Machiavellianism_Avg']:
+        if i < 2.222:
+            tmp.append(-1)
+        elif i >= 2.222 and i < 4.889:
+            tmp.append(0)
+        else:
+            tmp.append(1)
+    X['Machiavellianism_Category'] = tmp
 
     return X
