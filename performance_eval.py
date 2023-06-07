@@ -41,7 +41,7 @@ def eval_model(sets: dict) -> dict:
             'Machiavellianism_Model_Accuracy': mach_model_score}
 
 
-def pred(sets: dict, user_answers: list):
+def pred(sets: dict, user_answers: list) -> list:
 
     ### Call the model
     psych_model = sets['Psychopathy_Model']

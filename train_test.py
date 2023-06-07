@@ -30,7 +30,8 @@ def train_test(X: pd.DataFrame):
             X_psych[f'{i}'] = X[i]
 
     # dropping non-relevant columns
-    X_psych.drop(columns=['Psychopathy_Avg', 'Narcissism_Category',
+    X_psych.drop(columns=['Psychopathy_Avg', 'Narcissism_Avg',
+                          'Machiavellianism_Avg', 'Narcissism_Category',
                           'Psychopathy_Category', 'Machiavellianism_Category'],
                  inplace = True)
 
@@ -49,7 +50,8 @@ def train_test(X: pd.DataFrame):
             X_narc[f'{i}'] = X[i]
 
     # dropping non-relevant columns
-    X_narc.drop(columns=['Narcissism_Avg', 'Narcissism_Category',
+    X_narc.drop(columns=['Narcissism_Avg', 'Psychopathy_Avg',
+                         'Narcissism_Category', 'Machiavellianism_Avg',
                           'Psychopathy_Category', 'Machiavellianism_Category'],
                  inplace = True)
 
@@ -68,7 +70,8 @@ def train_test(X: pd.DataFrame):
             X_mach[f'{i}'] = X[i]
 
     # dropping non-relevant columns
-    X_mach.drop(columns=['Machiavellianism_Avg', 'Narcissism_Category',
+    X_mach.drop(columns=['Machiavellianism_Avg', 'Psychopathy_Avg',
+                         'Narcissism_Category', 'Narcissism_Avg',
                           'Psychopathy_Category', 'Machiavellianism_Category'],
                  inplace = True)
 
