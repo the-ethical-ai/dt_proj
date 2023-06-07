@@ -2,3 +2,4 @@ data/
 dt_proj/
 dt_proj.egg-info/
 notebooks/
+__pycache__/

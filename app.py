@@ -1,4 +1,7 @@
-#sys.path.insert(0, "..")
+'''
+Creates the interface (streamlit)
+'''
+import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -7,10 +10,7 @@ from params import DATA_PATH
 from preprocess import preprocess
 from Feat_engine import feature_engineering
 
-'''
-Creates the interface (streamlit)
-'''
-import streamlit as st
+start_button_clicked = False
 
 if 'counter' not in st.session_state.keys():
     st.session_state.counter = 0
@@ -64,10 +64,9 @@ def show_q_a(i):
     )
     if select != 'Select a number':
         st.write('You selected:', select)
-        name = 'Continue' if i < 26 else 'Submit'
+        name = 'Continue' if i < 27 else 'Submit'
         st.button(name, on_click=update, args=select)
 
-# show_q_a(i)
 
 def show_plots():
     df = pd.read_csv(DATA_PATH, delimiter = '\t')
@@ -88,7 +87,6 @@ def show_plots():
                                 line=dict(width=2,
                                             color='DarkSlateGrey')),
                                             selector=dict(mode='markers'))
-
 
     # Display the bar chart in Streamlit
     st.plotly_chart(fig)
@@ -114,7 +112,36 @@ def show_plots():
     fig3.update_layout(paper_bgcolor="lightgray",)
     st.plotly_chart(fig3)
 
-if st.button('Show Plots'):
-    show_plots()
-else:
-    show_q_a(i)
+
+def show_initial_text():
+    if not start_button_clicked:
+        st.subheader("Introducing the Psychopathy, Narcissism, Machiavellianism Assessment: Discover Your Personality Score!")
+        links = "[Machiavellianism](https://en.wikipedia.org/wiki/Machiavellianism_(psychology))&nbsp;&nbsp;[Narcissism](https://en.wikipedia.org/wiki/Narcissism) &nbsp; &nbsp;[Psychopathy](https://en.wikipedia.org/wiki/Psychopathy)"
+        st.markdown(f"""
+            - Uncover intriguing insights about your personality with just a few clicks!
+            - Not sure what they are? &nbsp; {links}
+        """)
+
+        st.markdown("""
+            Our interactive web interface offers a quick and engaging way to assess your Machiavellian tendencies. No lengthy explanations or excessive reading required!
+            Simply answer 28 questions by selecting a score from 1 to 5. It's as easy as giving your honest opinion.
+        """)
+
+        st.markdown("1 - Strongly Disagree &nbsp;&nbsp; 2 - Disagree &nbsp;&nbsp;  3 - Neutral &nbsp;&nbsp;  4 - Agree &nbsp;&nbsp;  5 - Strongly Agree")
+
+        st.markdown("Trust your instincts for the most accurate results.")
+        st.markdown("Once you've finished answering all the questions, we'll generate your personalized Machiavellianism/Psychopathy/Narcissism score and compare it to the average score of other 2 traits.")
+        st.markdown("Curious to see where you stand?")
+        st.markdown("But wait, there's more! We'll also provide you with a predicted Machiavellianism/Psychopathy/Narcissism score based on your responses. Unleash your inner strategist and uncover the hidden aspects of your personality.")
+        st.markdown("Ready to dive in? Begin the assessment now and unlock a fascinating glimpse into your Machiavellianism/Psychopathy/Narcissism score. Let's get started!")
+
+        st.write(
+            "<style>div.stButton > button {display: block; margin: 0 auto;}</style>",
+            unsafe_allow_html=True
+        )
+    return True
+
+show_initial_text()
+show_q_a(i)
+#show_plots()
+#st.write('answers', answers)
