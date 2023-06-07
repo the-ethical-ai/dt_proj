@@ -44,12 +44,13 @@ def eval_model(sets: dict) -> dict:
 def pred(sets: dict, user_answers: list):
 
     ### Call the model
-    models = model(sets)
-    psych_model = models['Psychopathy_Model']
-    narc_model = models['Narcissism_Model']
-    mach_model = models['Machiavellianism_Model']
+    psych_model = sets['Psychopathy_Model']
+    narc_model = sets['Narcissism_Model']
+    mach_model = sets['Machiavellianism_Model']
 
-    y_pred_psych = psych_model.predict(user_answers[:18])
+    y_pred_psych = psych_model.predict(user_answers[:18] + [user_answers[-1]])
+    y_pred_narc = narc_model.predict(user_answers[:9] + user_answers[18:27] + [user_answers[-1]])
+    y_pred_mach = mach_model.predict(user_answers[9:27] + [user_answers[-1]])
 
     ### RETURN 3 predicted classes based on user's answers.
-    return y_pred_psych
+    return [y_pred_psych, y_pred_narc, y_pred_mach]
