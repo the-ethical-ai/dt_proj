@@ -4,6 +4,7 @@ Initial feature engineering function
 # Packages/Libraries Used
 import pandas as pd
 import numpy as np
+
 def feature_engineering(X: pd.DataFrame) -> pd.DataFrame:
     # Compute row averages per trait (new column per average)
     # Column name format: traitType_Avg

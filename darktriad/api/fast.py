@@ -1,7 +1,7 @@
 
-from preprocess import preprocess
+from darktriad.ml_logic.preprocess import preprocess
 from darktriad.ml_logic.Feat_engine import feature_engineering
-from train_test import train_test
+from darktriad.ml_logic.train_test import train_test
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
