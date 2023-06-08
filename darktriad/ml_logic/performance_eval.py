@@ -4,7 +4,7 @@ Makes predictions and evaulates the models.
 All of these steps must be performed on all 3 models.
 '''
 ### Import the packages and models
-from model import model
+from darktriad.ml_logic.model import model
 import pandas as pd
 from sklearn.metrics import accuracy_score
 
