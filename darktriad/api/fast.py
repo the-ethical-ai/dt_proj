@@ -1,7 +1,7 @@
 
-from preprocess import preprocess
+from darktriad.ml_logic.preprocess import preprocess
 from darktriad.ml_logic.Feat_engine import feature_engineering
-from train_test import train_test
+from darktriad.ml_logic.train_test import train_test
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -16,9 +16,20 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-from fastapi import FastAPI
+#app.state.model = load_model()
 
-app = FastAPI()
+@app.get("/predict")
+def predict(user_answers: #default):
+
+    model = app.state.model
+    assert model is not None
+
+    y_pred = model.predict(user_answers)
+    return dict(fare_amount=float(y_pred))
+
+
+
+
 
 @app.get("/")
 async def root():
