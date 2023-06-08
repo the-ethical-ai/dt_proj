@@ -6,9 +6,9 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from darktriad.params import DATA_PATH
+from params import DATA_PATH
 from preprocess import preprocess
-from darktriad.ml_logic.Feat_engine import feature_engineering
+from Feat_engine import feature_engineering
 
 start_button_clicked = False
 
