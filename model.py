@@ -125,4 +125,6 @@ def model(X: dict) -> dict:
     ### RETURN 3 models
     return {'Psychopathy_Model': model_psych,
             'Narcissism_Model': model_narc,
-            'Machiavellianism_Model': model_march}
+            'Machiavellianism_Model': model_march,
+            'test_sets': [X_test_psych, X_test_narc, X_test_march,
+                          y_test_psych, y_test_narc, y_test_march]}
