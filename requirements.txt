@@ -1,0 +1,25 @@
+# Feel free to use this file to list the strict minimum requirements to copy inside your docker container in production
+# You may want to remove dev requirements such as pytest, ipykernel, matplotlib etc...
+
+# $CHA_BEGIN
+colorama
+numpy==1.23.5
+pandas==1.5.3
+pygeohash
+scikit-learn==1.2.1
+seaborn
+plotly
+xgboost
+
+google-cloud-storage
+pyarrow
+
+mlflow==2.1.1
+
+streamlit
+fastapi
+pytz
+uvicorn
+
+python-dotenv
+# $CHA_END
