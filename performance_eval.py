@@ -5,6 +5,7 @@ All of these steps must be performed on all 3 models.
 '''
 ### Import the packages and models
 from model import model
+import pandas as pd
 from sklearn.metrics import accuracy_score
 
 def eval_model(sets: dict) -> dict:
@@ -48,9 +49,24 @@ def pred(sets: dict, user_answers: list) -> list:
     narc_model = sets['Narcissism_Model']
     mach_model = sets['Machiavellianism_Model']
 
-    y_pred_psych = psych_model.predict(user_answers[:18] + [user_answers[-1]])
-    y_pred_narc = narc_model.predict(user_answers[:9] + user_answers[18:27] + [user_answers[-1]])
-    y_pred_mach = mach_model.predict(user_answers[9:27] + [user_answers[-1]])
+    ### Making pandas series out of the user answers
+    psych_series = pd.Series(user_answers[:18] + [user_answers[-1]],
+                             index = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7',
+                                      'M8', 'M9', 'N1', 'N2', 'N3', 'N4', 'N5',
+                                      'N6', 'N7', 'N8', 'N9', 'US_resident'])
+    narc_series = pd.Series(user_answers[:9] + user_answers[18:27] + [user_answers[-1]],
+                            index = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7',
+                                     'M8', 'M9', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6',
+                                     'P7', 'P8', 'P9', 'US_resident'])
+    mach_series = pd.Series(user_answers[9:27] + [user_answers[-1]],
+                            index = ['N1', 'N2', 'N3','N4', 'N5', 'N6', 'N7',
+                                     'N8', 'N9', 'P1', 'P2', 'P3', 'P4', 'P5',
+                                     'P6', 'P7', 'P8', 'P9', 'US_resident'])
+
+    ### Making predictions
+    y_pred_psych = psych_model.predict(psych_series.to_numpy().reshape(1,-1))
+    y_pred_narc = narc_model.predict(narc_series.to_numpy().reshape(1,-1))
+    y_pred_mach = mach_model.predict(mach_series.to_numpy().reshape(1,-1))
 
     ### RETURN 3 predicted classes based on user's answers.
     return [y_pred_psych, y_pred_narc, y_pred_mach]
