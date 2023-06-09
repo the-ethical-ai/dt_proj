@@ -1,14 +1,17 @@
 '''
 Creates the interface (streamlit)
 '''
+import json
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from params import DATA_PATH
-from preprocess import preprocess
-from Feat_engine import feature_engineering
+#from params import DATA_PATH
+from darktriad.ml_logic.preprocess import preprocess
+from darktriad.ml_logic.Feat_engine import feature_engineering
+import requests
+import ipdb
 
 start_button_clicked = False
 
@@ -50,6 +53,76 @@ questions = ["It's not wise to tell your secrets.",
              "Are you a US citizen?"]
 
 def update(select):
+    #st.button("Submit")
+    if st.button("Submit"):
+        #q1 = st.number_input("q1", value=1)
+        #q2 = st.number_input("q2", value=1)
+        #q3 = st.number_input("q3", value=1)
+        #q4 = st.number_input("q4", value=1)
+        #q5 = st.number_input("q5", value=1)
+        #q6 = st.number_input("q6", value=1)
+        #q7 = st.number_input("q7", value=1)
+        #q8 = st.number_input("q8", value=1)
+        #q9 = st.number_input("q9", value=1)
+        #q10 = st.number_input("q10", value=1)
+        #q11 = st.number_input("q11", value=1)
+        #q12 = st.number_input("q12", value=1)
+        #q13 = st.number_input("q13", value=1)
+        #q14 = st.number_input("q14", value=1)
+        #q15 = st.number_input("q15", value=1)
+        #q16 = st.number_input("q16", value=1)
+        #q17 = st.number_input("q17", value=1)
+        #q18 = st.number_input("q18", value=1)
+        #q19 = st.number_input("q19", value=1)
+        #q20 = st.number_input("q20", value=1)
+        #q21 = st.number_input("q21", value=1)
+        #q22 = st.number_input("q22", value=1)
+        #q23 = st.number_input("q23", value=1)
+        #q24 = st.number_input("q24", value=1)
+        #q25 = st.number_input("q25", value=1)
+        #q26 = st.number_input("q26", value=1)
+        #q27 = st.number_input("q27", value=1)
+        #q28 = st.number_input("q28", value=1)
+        #params = dict(q1=q1,
+        #              q2=q2,
+        #              q3=q3,
+        #              q4=q4,
+        #              q5=q5,
+        #              q6=q6,
+        #              q7=q7,
+        #              q8=q8,
+        #              q9=q9,
+        #              q10=q10,
+        #              q11=q11,
+        #              q12=q12,
+        #              q13=q13,
+        #              q14=q14,
+        #              q15=q15,
+        #              q16=q16,
+        #              q17=q17,
+        #              q18=q18,
+        #              q19=q19,
+        #              q20=q20,
+        #              q21=q21,
+        #              q22=q22,
+        #              q23=q23,
+        #              q24=q24,
+        #              q25=q25,
+        #              q26=q26,
+        #              q27=q27,
+        #              q28=q28
+        params = {'user_answers': [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0]}
+        api_url = 'http://localhost:4000/predict'
+        #breakpoint()
+        response = requests.get(api_url, params=params)
+        prediction = response.json()
+        #breakpoint()
+        pred_1 = prediction["Psych_Pred"]
+        pred_2 = prediction["Narc_Pred"]
+        pred_3 = prediction["Mach_Pred"]
+        pred = prediction['sample']
+        st.header(f'Prediction: {pred_3}')
+    else:
         answers.append(int(select))
         global i
         i += 1
@@ -66,6 +139,10 @@ def show_q_a(i):
         st.write('You selected:', select)
         name = 'Continue' if i < 27 else 'Submit'
         st.button(name, on_click=update, args=select)
+
+
+
+
 
 
 def show_plots():

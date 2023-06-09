@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+import json
 
 app = FastAPI()
 
@@ -50,13 +51,16 @@ def predict(
     #q24,q25,q26,q27,q28]
 
     #vals = [int(i) for i in answer_list]
-    vals = [int(i) for i in user_answers.strip('[]').split(',')]
+    vals = [int(j) for j in user_answers.strip('[]').split(',')]
     sample = prediction(vals)
     #sample = prediction([1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,1])
     return {'Psych_Pred': sample[0],
             'Narc_Pred': sample[1],
             'Mach_Pred': sample[2]}
 
+
+### THIS RETURNS A PREDICTION
+#http://localhost:4000/predict?user_answers=[1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,1]
 
 @app.get("/")
 async def root():
