@@ -46,11 +46,10 @@ def prediction(user_answers: list = None) -> list:
 
         models = load('final_model.joblib')
         assert models is not None
-        print('models done')
+        print('\n✅ Models have been loaded')
 
         prediction = pred(models, user_answers)
-        print("\n✅ Prediction done:", prediction, "\n")
-        print('prediction done')
+        print("\n✅ Prediction Completed:", prediction, "\n")
         return prediction
 
     except Exception as e:
