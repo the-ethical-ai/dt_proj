@@ -58,4 +58,4 @@ def prediction(user_answers: list = None) -> list:
 
 
 if __name__ == '__main__':
-    prediction(list(np.ones(27)) + [1])
+    prediction()
