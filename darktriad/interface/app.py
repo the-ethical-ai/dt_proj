@@ -203,5 +203,5 @@ elif page == "Front":
     front_page()
 elif page == "Test":
     test_page()
-elif page == "Result" #or current_page == 'result_page':
+elif page == "Result":
     result_page()

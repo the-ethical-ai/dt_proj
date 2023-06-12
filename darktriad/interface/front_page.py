@@ -1,8 +1,10 @@
 # page1.py
 import streamlit as st
+from PIL import Image
+from darktriad.params import IMG_PATH
 
 def front_page():
-    st.header("Page Front Content")
+    #st.header("Page Front Content")
     # Add content specific to Page 2
     # Graphic
     # title
@@ -16,15 +18,6 @@ def show_initial_text():
         Simply answer 28 questions by selecting a score from 1 to 5. It's as easy as giving your honest opinion.
     """)
 
-    st.markdown("1 - Strongly Disagree &nbsp;&nbsp; 2 - Disagree &nbsp;&nbsp;  3 - Neutral &nbsp;&nbsp;  4 - Agree &nbsp;&nbsp;  5 - Strongly Agree")
-
-    st.markdown("Trust your instincts for the most accurate results.")
-    st.markdown("Once you've finished answering all the questions, we'll generate your personalized Machiavellianism/Psychopathy/Narcissism score and compare it to the average score of other 2 traits.")
-    st.markdown("Curious to see where you stand?")
-    st.markdown("But wait, there's more! We'll also provide you with a predicted Machiavellianism/Psychopathy/Narcissism score based on your responses. Unleash your inner strategist and uncover the hidden aspects of your personality.")
-    st.markdown("Ready to dive in? Begin the assessment now and unlock a fascinating glimpse into your Machiavellianism/Psychopathy/Narcissism score. Let's get started!")
-
-    st.write(
-        "<style>div.stButton > button {display: block; margin: 0 auto;}</style>",
-        unsafe_allow_html=True
-    )
+    # Display an image from a file
+    image_file = "/Users/imgeildan/code/imgeildan/dt_proj/darktriad/images/7n590c.jpg"
+    st.image(image_file, caption="Image Caption", use_column_width=True)
