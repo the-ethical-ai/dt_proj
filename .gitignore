@@ -7,6 +7,7 @@ notebooks/
 tester_notebook.ipynb
 **/__pycache__/
 d2_notebook.ipynb
+trained_models.joblib
 
 <<<<<<< HEAD
 .env.yaml
