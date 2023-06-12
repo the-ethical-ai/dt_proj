@@ -86,8 +86,8 @@ def finish(select):
         placement(preds["Mach_Pred"])
 
 
-#
-def show_q_a(i):#
+
+def show_q_a(i):
     select = st.selectbox(
         f"{i+1})  {questions[i]}",
         ('Select a number', '1', '2', '3', '4', '5')
@@ -115,7 +115,7 @@ def show_q_a(i):#
 #    df_after_preprocess = preprocess(df)
 #    df_after_featureng = feature_engineering(df_after_preprocess)#
 
-#    #Avearges
+#    #Averages
 #    #df_after_featureng
 #    df_average = df_after_featureng.mean(axis=0)
 #    df_average_traits = df_average.iloc[:27]
