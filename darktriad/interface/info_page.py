@@ -1,10 +1,12 @@
-# page1.py
 import streamlit as st
-#from darktriad.interface.app import show_initial_text
 
 def info_page():
-    st.header("Page Info Content")
+    #st.header("Page Info Content")
     # Add content specific to Page 1
     # wiki
     # short descriptions
-    #show_initial_text()
+    links = "[Machiavellianism](https://en.wikipedia.org/wiki/Machiavellianism_(psychology))&nbsp;&nbsp;[Narcissism](https://en.wikipedia.org/wiki/Narcissism) &nbsp; &nbsp;[Psychopathy](https://en.wikipedia.org/wiki/Psychopathy)"
+    st.markdown(f"""
+        - Uncover intriguing insights about your personality with just a few clicks!
+        - Not sure what they are? &nbsp; {links}
+    """)
