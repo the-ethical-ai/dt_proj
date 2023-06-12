@@ -12,9 +12,12 @@ from darktriad.ml_logic.preprocess import preprocess
 from darktriad.ml_logic.Feat_engine import feature_engineering
 import requests
 #import ipdb
+from darktriad.interface.info_page import info_page
+from darktriad.interface.front_page import front_page
+from darktriad.interface.test_page import test_page
+from darktriad.interface.result_page import result_page
 
-
-#start_button_clicked = False
+start_button_clicked = False
 #
 #if 'counter' not in st.session_state.keys():
 #    st.session_state.counter = 0
@@ -154,33 +157,33 @@ import requests
 #    st.plotly_chart(fig3)
 #
 #
-#def show_initial_text():
-#    if not start_button_clicked:
-#        st.subheader("Introducing the Psychopathy, Narcissism, Machiavellianism Assessment: Discover Your Personality Score!")
-#        links = "[Machiavellianism](https://en.wikipedia.org/wiki/Machiavellianism_(psychology))&nbsp;&nbsp;[Narcissism](https://en.wikipedia.org/wiki/Narcissism) &nbsp; &nbsp;[Psychopathy](https://en.wikipedia.org/wiki/Psychopathy)"
-#        st.markdown(f"""
-#            - Uncover intriguing insights about your personality with just a few clicks!
-#            - Not sure what they are? &nbsp; {links}
-#        """)
-#
-#        st.markdown("""
-#            Our interactive web interface offers a quick and engaging way to assess your Machiavellian tendencies. No lengthy explanations or excessive reading required!
-#            Simply answer 28 questions by selecting a score from 1 to 5. It's as easy as giving your honest opinion.
-#        """)
-#
-#        st.markdown("1 - Strongly Disagree &nbsp;&nbsp; 2 - Disagree &nbsp;&nbsp;  3 - Neutral &nbsp;&nbsp;  4 - Agree &nbsp;&nbsp;  5 - Strongly Agree")
-#
-#        st.markdown("Trust your instincts for the most accurate results.")
-#        st.markdown("Once you've finished answering all the questions, we'll generate your personalized Machiavellianism/Psychopathy/Narcissism score and compare it to the average score of other 2 traits.")
-#        st.markdown("Curious to see where you stand?")
-#        st.markdown("But wait, there's more! We'll also provide you with a predicted Machiavellianism/Psychopathy/Narcissism score based on your responses. Unleash your inner strategist and uncover the hidden aspects of your personality.")
-#        st.markdown("Ready to dive in? Begin the assessment now and unlock a fascinating glimpse into your Machiavellianism/Psychopathy/Narcissism score. Let's get started!")
-#
-#        st.write(
-#            "<style>div.stButton > button {display: block; margin: 0 auto;}</style>",
-#            unsafe_allow_html=True
-#        )
-#    return True
+def show_initial_text():
+    if not start_button_clicked:
+        st.subheader("Introducing the Psychopathy, Narcissism, Machiavellianism Assessment: Discover Your Personality Score!")
+        links = "[Machiavellianism](https://en.wikipedia.org/wiki/Machiavellianism_(psychology))&nbsp;&nbsp;[Narcissism](https://en.wikipedia.org/wiki/Narcissism) &nbsp; &nbsp;[Psychopathy](https://en.wikipedia.org/wiki/Psychopathy)"
+        st.markdown(f"""
+            - Uncover intriguing insights about your personality with just a few clicks!
+            - Not sure what they are? &nbsp; {links}
+        """)
+
+        st.markdown("""
+            Our interactive web interface offers a quick and engaging way to assess your Machiavellian tendencies. No lengthy explanations or excessive reading required!
+            Simply answer 28 questions by selecting a score from 1 to 5. It's as easy as giving your honest opinion.
+        """)
+
+        st.markdown("1 - Strongly Disagree &nbsp;&nbsp; 2 - Disagree &nbsp;&nbsp;  3 - Neutral &nbsp;&nbsp;  4 - Agree &nbsp;&nbsp;  5 - Strongly Agree")
+
+        st.markdown("Trust your instincts for the most accurate results.")
+        st.markdown("Once you've finished answering all the questions, we'll generate your personalized Machiavellianism/Psychopathy/Narcissism score and compare it to the average score of other 2 traits.")
+        st.markdown("Curious to see where you stand?")
+        st.markdown("But wait, there's more! We'll also provide you with a predicted Machiavellianism/Psychopathy/Narcissism score based on your responses. Unleash your inner strategist and uncover the hidden aspects of your personality.")
+        st.markdown("Ready to dive in? Begin the assessment now and unlock a fascinating glimpse into your Machiavellianism/Psychopathy/Narcissism score. Let's get started!")
+
+        st.write(
+            "<style>div.stButton > button {display: block; margin: 0 auto;}</style>",
+            unsafe_allow_html=True
+        )
+    return True
 #
 # show_initial_text()
 # show_q_a(i)
@@ -188,36 +191,10 @@ import requests
 #st.write('answers', answers)
 
 
-st.title("My Streamlit App")
+st.title("Dark Triad App")
 
 # Sidebar navigation or menu selection
 page = st.sidebar.selectbox("Select Page", ("Info", "Front", "Test", "Result"))
-
-def info_page():
-    st.header("Page Info Content")
-    # Add content specific to Page 1
-    # wiki
-    # short descriptions
-
-def front_page():
-    st.header("Page Front Content")
-    # Add content specific to Page 2
-    # Graphic
-    # title
-    # intro
-
-def test_page():
-    st.header("Page Test Content")
-    # Add content specific to Page 3
-    # how to take test description
-    # start button
-
-def result_page():
-    st.header("Page Result Content")
-    # Add content specific to Page 3
-    # scores
-    # plots
-    # interpretation
 
 # Display the selected page
 if page == "Info":
