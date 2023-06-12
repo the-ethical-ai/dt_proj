@@ -8,5 +8,5 @@ tester_notebook.ipynb
 __pycache__/
 d2_notebook.ipynb
 
-.env
+#.env
 .env.yaml
