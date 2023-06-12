@@ -1,0 +1,16 @@
+colorama
+numpy==1.23.5
+pandas==1.5.3
+pygeohash
+scikit-learn==1.2.1
+seaborn
+plotly
+xgboost
+google-cloud-storage
+pyarrow
+mlflow==2.1.1
+streamlit
+fastapi
+pytz
+uvicorn
+python-dotenv
