@@ -10,8 +10,13 @@ scikit-learn==1.2.1
 seaborn
 plotly
 xgboost
+<<<<<<< HEAD
 wheel
 cmake
+=======
+cmake
+wheel
+>>>>>>> master
 lightgbm
 
 google-cloud-storage

@@ -5,8 +5,11 @@ dt_proj.egg-info/
 notebooks/
 
 tester_notebook.ipynb
-__pycache__/
+**/__pycache__/
 d2_notebook.ipynb
 
+<<<<<<< HEAD
 .env.yaml
+=======
+>>>>>>> master
 .env
