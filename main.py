@@ -21,7 +21,7 @@ from darktriad.ml_logic.performance_eval import eval_model, pred
 ticker = False
 
 def prep():
-    df = pd.read_csv("/Users/zemblanity/portfolio_projects/Dark_Triad/dark_triad/Data/SD3/data.csv",delimiter = '\t')
+    df = pd.read_csv("/home/saikotdasjoy/code/Saikot1997/dt_proj/data/data.csv", delimiter = '\t')
     df = preprocess(df)
     df = feature_engineering(df)
     train_test_Dict = train_test(df)
@@ -39,8 +39,8 @@ def save_model(models):
 
 def prediction(user_answers: list = None) -> list:
     print("\n⭐️ Use case: predict")
-    if ticker == False:
-        save_model(make_models())
+    # if ticker == False:
+    save_model(make_models())
     try:
         assert user_answers is not None
 

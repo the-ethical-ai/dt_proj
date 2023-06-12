@@ -7,6 +7,7 @@ All of these steps must be performed on all 3 models.
 from darktriad.ml_logic.model import model
 import pandas as pd
 from sklearn.metrics import accuracy_score
+import numpy as np
 
 def eval_model(sets: dict) -> dict:
     ### Getting each of the models
@@ -69,4 +70,8 @@ def pred(sets: dict, user_answers: list) -> list:
     y_pred_mach = mach_model.predict(mach_series.to_numpy().reshape(1,-1))
 
     ### RETURN 3 predicted classes based on user's answers.
-    return [y_pred_psych, y_pred_narc, y_pred_mach]
+    return {
+        'y_pred_psych': y_pred_psych,
+        'y_pred_narc': y_pred_narc,
+        'y_pred_mach': y_pred_mach
+        }

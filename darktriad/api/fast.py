@@ -1,12 +1,13 @@
-
-from darktriad.ml_logic.preprocess import preprocess
-from darktriad.ml_logic.Feat_engine import feature_engineering
-from darktriad.ml_logic.train_test import train_test
-from darktriad.ml_logic.model import model
-from darktriad.ml_logic.performance_eval import pred
-from fastapi import FastAPI
+import glob
+import joblib
 import pandas as pd
+from colorama import Fore, Style
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
+from darktriad.ml_logic.performance_eval import pred
+from fastapi import HTTPException
+
 
 app = FastAPI()
 
@@ -19,24 +20,27 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-from fastapi import FastAPI
 
-app = FastAPI()
+def load_model():
+    print(Fore.BLUE + "\nLoad latest model from local registry..." + Style.RESET_ALL)
+
+    # Get the latest model version name by the timestamp on disk
+    local_model_directory = "/home/saikotdasjoy/code/Saikot1997/dt_proj/trained_models.joblib"
+    latest_model = joblib.load(local_model_directory)
+    print("✅ Model loaded from local disk")
+    return latest_model
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
-df = pd.read_csv(URL)
-df = preprocess(df)
-df = feature_engineering(df)
-splits = train_test(df)
-models = model(splits)
-
-
 @app.get("/predict")
-def predict(
-    sets: models,
-    user_answers: list
-):
-    y_predictions = pred(sets, user_answers)
+def predict(user_answers: List[int]):
+    # Load the models
+    models = load_model()
+
+    # Make predictions using the loaded models
+    y_predictions = pred(models, user_answers)
+
+    # Return the predictions
+    return y_predictions
