@@ -10,6 +10,9 @@ scikit-learn==1.2.1
 seaborn
 plotly
 xgboost
+wheel
+cmake
+lightgbm
 
 google-cloud-storage
 pyarrow

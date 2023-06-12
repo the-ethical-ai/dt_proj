@@ -9,3 +9,4 @@ __pycache__/
 d2_notebook.ipynb
 
 .env.yaml
+.env
