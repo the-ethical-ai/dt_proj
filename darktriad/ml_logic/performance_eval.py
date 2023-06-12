@@ -69,4 +69,4 @@ def pred(sets: dict, user_answers: list) -> list:
     y_pred_mach = mach_model.predict(mach_series.to_numpy().reshape(1,-1))
 
     ### RETURN 3 predicted classes based on user's answers.
-    return [y_pred_psych, y_pred_narc, y_pred_mach]
+    return [int(y_pred_psych[0]), int(y_pred_narc[0]), int(y_pred_mach[0])]

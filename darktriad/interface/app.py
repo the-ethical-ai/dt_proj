@@ -1,14 +1,17 @@
 '''
 Creates the interface (streamlit)
 '''
+import json
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from params import DATA_PATH
-from preprocess import preprocess
-from Feat_engine import feature_engineering
+#from params import DATA_PATH
+from darktriad.ml_logic.preprocess import preprocess
+from darktriad.ml_logic.Feat_engine import feature_engineering
+import requests
+import ipdb
 
 start_button_clicked = False
 
@@ -18,8 +21,9 @@ i = st.session_state.counter
 
 if 'answers' not in st.session_state.keys():
     st.session_state.answers = []
+global answers
 answers = st.session_state.answers
-
+#
 questions = ["It's not wise to tell your secrets.",
              "I like to use clever manipulation to get my way.",
              "Whatever it takes, you must get the important people on your side. ",
@@ -48,71 +52,107 @@ questions = ["It's not wise to tell your secrets.",
              "I enjoy having sex with people I hardly know.",
              "I’ll say anything to get what I want.",
              "Are you a US citizen?"]
-
+#
 def update(select):
-        answers.append(int(select))
-        global i
-        i += 1
-        st.session_state.answers = answers
-        st.session_state.counter = i
+    answers.append(int(select))
+    global i
+    i += 1
+    st.session_state.answers = answers
+    st.session_state.counter = i
 
-def show_q_a(i):
+global preds
 
+def placement(x:int):
+    if x == -1:
+        st.write('You placed below the expected score')
+    elif x == 0:
+        st.write('You are within the expected range')
+    else:
+        st.write('You are above the expected score')
+
+def finish(select):
+        api_url = f'http://localhost:4000/predict?user_answers={answers}'
+
+        response = requests.get(api_url)
+        global preds
+        preds = response.json()
+
+
+        st.write('PSYCHOPATHY')
+        placement(preds["Psych_Pred"])
+        st.write('NARCISSISM')
+        placement(preds["Narc_Pred"])
+        st.write('MACHIAVELLIANISM')
+        placement(preds["Mach_Pred"])
+
+
+#
+def show_q_a(i):#
     select = st.selectbox(
         f"{i+1})  {questions[i]}",
         ('Select a number', '1', '2', '3', '4', '5')
     )
     if select != 'Select a number':
         st.write('You selected:', select)
-        name = 'Continue' if i < 27 else 'Submit'
-        st.button(name, on_click=update, args=select)
+        if (i < 27):
+            name = 'Continue'
+            st.button(name, on_click=update, args=select,key='a43')
+        else:
+            name = 'Submit'
+            st.button(name, on_click=finish, args=select,key='a43')
 
 
-def show_plots():
-    df = pd.read_csv(DATA_PATH, delimiter = '\t')
-    #df.head()
+#
+#
+#
+#
+#
+#
+#def show_plots():
+#    df = pd.read_csv(DATA_PATH, delimiter = '\t')
+#    #df.head()#
 
-    df_after_preprocess = preprocess(df)
-    df_after_featureng = feature_engineering(df_after_preprocess)
+#    df_after_preprocess = preprocess(df)
+#    df_after_featureng = feature_engineering(df_after_preprocess)#
 
-    #Avearges
-    #df_after_featureng
-    df_average = df_after_featureng.mean(axis=0)
-    df_average_traits = df_average.iloc[:27]
-    average_df = pd.DataFrame(df_average_traits)
+#    #Avearges
+#    #df_after_featureng
+#    df_average = df_after_featureng.mean(axis=0)
+#    df_average_traits = df_average.iloc[:27]
+#    average_df = pd.DataFrame(df_average_traits)#
 
-    fig = px.bar(average_df,title="Average score for each question")
-    fig.update_layout(xaxis_title="Average scores", yaxis_title="Questions")
-    fig.update_traces(marker=dict(size=12,
-                                line=dict(width=2,
-                                            color='DarkSlateGrey')),
-                                            selector=dict(mode='markers'))
+#    fig = px.bar(average_df,title="Average score for each question")
+#    fig.update_layout(xaxis_title="Average scores", yaxis_title="Questions")
+#    fig.update_traces(marker=dict(size=12,
+#                                line=dict(width=2,
+#                                            color='DarkSlateGrey')),
+#                                            selector=dict(mode='markers'))#
 
-    # Display the bar chart in Streamlit
-    st.plotly_chart(fig)
+#    # Display the bar chart in Streamlit
+#    st.plotly_chart(fig)#
 
-    fig2 = go.Figure(go.Indicator(
-        mode = "number+gauge+delta",
-        gauge = {'shape': "bullet"},
-        delta = {'reference': 4.3},
-        domain = {'x': [0.1, 1], 'y': [0.2, 0.9]},
-        value = 5,
-        title = {'text': "Average score"}))
+#    fig2 = go.Figure(go.Indicator(
+#        mode = "number+gauge+delta",
+#        gauge = {'shape': "bullet"},
+#        delta = {'reference': 4.3},
+#        domain = {'x': [0.1, 1], 'y': [0.2, 0.9]},
+#        value = 5,
+#        title = {'text': "Average score"}))#
 
-    st.plotly_chart(fig2)
+#    st.plotly_chart(fig2)#
 
-    fig3 = go.Figure(go.Indicator(
-        mode="number+delta",
-        value=3,
-        number={'suffix': "", 'prefix': "Your score: ", 'font': {'size': 52}},
-        delta={'position': "bottom", 'reference': 4},
-        title={'text': " average score for question"}))
+#    fig3 = go.Figure(go.Indicator(
+#        mode="number+delta",
+#        value=3,
+#        number={'suffix': "", 'prefix': "Your score: ", 'font': {'size': 52}},
+#        delta={'position': "bottom", 'reference': 4},
+#        title={'text': " average score for question"}))#
 
-    # Update layout
-    fig3.update_layout(paper_bgcolor="lightgray",)
-    st.plotly_chart(fig3)
-
-
+#    # Update layout
+#    fig3.update_layout(paper_bgcolor="lightgray",)
+#    st.plotly_chart(fig3)
+#
+#
 def show_initial_text():
     if not start_button_clicked:
         st.subheader("Introducing the Psychopathy, Narcissism, Machiavellianism Assessment: Discover Your Personality Score!")
