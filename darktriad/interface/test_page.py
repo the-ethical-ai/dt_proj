@@ -7,7 +7,6 @@ start_button_clicked = False
 
 if 'counter' not in st.session_state.keys():
    st.session_state.counter = 0
-i = st.session_state.counter
 
 if 'answers' not in st.session_state.keys():
    st.session_state.answers = []
@@ -45,20 +44,11 @@ questions = ["It's not wise to tell your secrets.",
 #
 def update(select):
    answers.append(int(select))
-   global i
-   i += 1
    st.session_state.answers = answers
-   st.session_state.counter = i
+   st.session_state.counter += 1
 
 global preds
 
-def placement(x:int):
-   if x == -1:
-       st.write('You placed below the expected score')
-   elif x == 0:
-       st.write('You are within the expected range')
-   else:
-       st.write('You are above the expected score')
 
 def show_q_a(i):
    select = st.selectbox(
@@ -70,17 +60,8 @@ def show_q_a(i):
        if (i < 27):
            name = 'Continue'
            st.button(name, on_click=update, args=select,key='a43')
-       else:
-           name = 'Submit'
-           #st.button(name, on_click=, args=select,key='a43')
-           if st.button("Submit"):
-               page = "Result"
-               result_page()
-            #    global page
-            #    page = "Result"
-            #    st.session_state.page = "Result"
-               
+                     
 def test_page():
-    st.header("Bla bla")
-    show_q_a(i)
-    
+    #st.header("Bla bla")
+    show_q_a(st.session_state.counter)
+    st.markdown(f"You are at question: {st.session_state.counter+1} out of 28")
