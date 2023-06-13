@@ -194,7 +194,7 @@ def show_initial_text():
 st.title("Dark Triad App")
 
 # Sidebar navigation or menu selection
-page = st.sidebar.selectbox("Select Page", ("Info", "Front", "Test", "Result"))
+page = st.sidebar.selectbox("Select Page", ("Front", "Info", "Test", "Result"))
 
 # Display the selected page
 if page == "Info":
