@@ -191,17 +191,77 @@ def show_initial_text():
 #st.write('answers', answers)
 
 
+# import streamlit as st
+# import pickle as pkle
+# import os.path
+
+# pages = ["Info", "Front", "Test", "Result"]
+
+# if os.path.isfile('next.p'):
+#     next_clicked = pkle.load(open('next.p', 'rb'))
+#     if next_clicked == len(pages):
+#         next_clicked = 0 
+# else:
+#     next_clicked = 0 
+
+# if next:
+#     next_clicked = next_clicked+1
+#     if next_clicked == len(pages):
+#         next_clicked = 0 
+
+# choice = st.sidebar.radio("Pages",("Info", "Front", "Test", "Result"), index=next_clicked)
+# pkle.dump(pages.index(choice), open('next.p', 'wb'))
+
+# if choice == 'Info':
+#     st.title('Info')
+#     info_page()
+#     next = st.button('Go to next page')
+# elif choice == 'Front':
+#     st.title('Front')
+#     front_page()
+#     next = st.button('Go to next page')
+# elif choice == 'Test':
+#     st.title('Test')
+#     test_page()
+# else:
+#     choice == "Result"
+#     st.title("Result")
+#     result_page()
+    
+
+    
+
+
+###############################Working###################################
+
 st.title("Dark Triad App")
 
+def onNextPage():
+    st.session_state['selection'] += 1
+    
+def reset():
+    st.session_state['selection'] = 0
+
+if 'selection' not in st.session_state:
+    st.session_state['selection'] = 0
+
+if 'counter' not in st.session_state.keys():
+    st.session_state.counter = 0
+
 # Sidebar navigation or menu selection
-page = st.sidebar.selectbox("Select Page", ("Info", "Front", "Test", "Result"))
+page = st.sidebar.selectbox("Select Page", ("Info", "Front", "Test", "Result"), index=st.session_state['selection'])
 
 # Display the selected page
 if page == "Info":
     info_page()
+    next_page_info = st.button('Next Page', on_click=onNextPage)
 elif page == "Front":
     front_page()
+    next_page_front = st.button('Next Page', on_click=onNextPage)
 elif page == "Test":
     test_page()
+    if st.session_state.counter == 27:
+        next_page_test = st.button('Next Page', on_click=onNextPage)
 elif page == "Result":
     result_page()
+    go_back = st.button('Go Back', on_click=reset)
