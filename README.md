@@ -7,7 +7,7 @@ Available June 16th, 2023
 **Goal:**
 
 - Predict score category for dark triad traits based on SD3 questionnaire.
-- Provide user-interface that allows for people to take SD3 questionnaire and view actual scores vs. predicted scores by trait-type.
+- Predict user-reported honesty rating based on HSNS and DD questionnaire.
 
 **Languages/Applications Used:**
 
