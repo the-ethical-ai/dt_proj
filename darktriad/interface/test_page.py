@@ -43,24 +43,37 @@ questions = ["It's not wise to tell your secrets.",
             "Are you a US citizen?"]
 #
 def update(select):
-   answers.append(int(select))
-   st.session_state.answers = answers
-   st.session_state.counter += 1
+    if st.session_state.counter == 27:  # Check if it is the "Are you a US citizen?" question
+    # Convert the answer to 1 or 0
+        if select == 'Yes':
+            select = 1
+        else:
+            select = 0
+    answers.append(int(select))
+    st.session_state.answers = answers
+    st.session_state.counter += 1
 
 global preds
 
 
 def show_q_a(i):
-   select = st.selectbox(
-       f"{i+1})  {questions[i]}",
-       ('Select a number', '1', '2', '3', '4', '5')
-   )
-   if select != 'Select a number':
+   if i == 27:  # Check if it is the "Are you a US citizen?" question
+       select = st.selectbox(
+           f"{i+1})  {questions[i]}",
+           ('Select an option', 'Yes', 'No')
+       )
+   else:
+       select = st.selectbox(
+           f"{i+1})  {questions[i]}",
+           ('Select a number', '1', '2', '3', '4', '5')
+       )
+   if select != 'Select a number' and select != 'Select an option':
        st.write('You selected:', select)
        if (i < 27):
            name = 'Continue'
-           st.button(name, on_click=update, args=select,key='a43')
-                     
+           st.button(name, on_click=update, args=select, key='a43')
+
+
 def test_page():
     #st.header("Bla bla")
     show_q_a(st.session_state.counter)
