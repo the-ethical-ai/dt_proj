@@ -91,8 +91,21 @@ def draw_question_dist_barplots(X: pd.DataFrame):
                     'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9', 'P1', 'P2',
                     'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9']
 
-def plot_results(PSY, NAR, MAC):
+    def plot_bar_chart(column_name):
+        column_values = X[column_name]
+        value_counts = column_values.value_counts()
+        position = column_names.index(column_name)
+        question = questions[position]
+        plt.bar(value_counts.index, value_counts.values)
+        plt.xlabel(f'Scores for question {column_name}')
+        plt.ylabel('Count')
+        plt.title(f'{column_name}: {question}')
+        plt.show()
 
+    return plot_bar_chart(X)
+
+
+def plot_results(PSY, NAR, MAC):
     C = ['PSYCHOPATHY', 'NARCISSISM', 'MACHIAVELLIANISM']
 
     sns.set_style("white")
