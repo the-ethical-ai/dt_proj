@@ -20,7 +20,7 @@ Available June 16th, 2023
 - **Team Members:** Tyler Chang, Laura Schopp, Imge Ildan, and Saikot Das Joy
 - **Project Development Time:** 9 days
 
-**How to Use**
+**How to Use:**
 
 We recommend using the following to run the files.
 
