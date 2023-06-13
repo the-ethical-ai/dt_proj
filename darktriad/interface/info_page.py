@@ -14,7 +14,7 @@ def info_page():
     st.markdown(" ")
 
     # Display an image
-    image_file = "https://github.com/Habeus-Crimpus/dt_proj/blob/master/7n590c.jpg?raw=true"
+    image_file = "../images/7n3krt.jpg"
     st.image(image_file, caption="Image Caption", use_column_width=True)
 
     # Add new line
@@ -23,5 +23,5 @@ def info_page():
     st.markdown(" ")
     st.markdown(" ")
 
-    image_file = "https://github.com/Habeus-Crimpus/dt_proj/blob/master/7nmpjd.gif?raw=true"
+    image_file = "../images/7nmpjd.gif"
     st.image(image_file, caption="Image Caption", use_column_width=True)

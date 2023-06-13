@@ -20,5 +20,5 @@ def show_initial_text():
     st.markdown(" ")
 
     # Display an image from a file
-    image_file = "/Users/imgeildan/code/imgeildan/dt_proj/darktriad/images/image_front.jpg"
+    image_file = "../images/image_front.jpg"
     st.image(image_file, caption="Image Caption", use_column_width=True)
