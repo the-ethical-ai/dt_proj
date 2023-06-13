@@ -28,6 +28,7 @@ if 'counter' not in st.session_state.keys():
     st.session_state.counter = 0
 
 # Sidebar navigation or menu selection
+
 page = st.sidebar.selectbox("Select Page", ("Info", "Front", "Test", "Result"), index=st.session_state['selection'])
 
 # Display the selected page
