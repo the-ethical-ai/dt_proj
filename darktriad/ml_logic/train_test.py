@@ -83,7 +83,7 @@ def train_test(X: pd.DataFrame):
 
     # train-test split
     X_train_psych, X_test_psych, y_train_psych, y_test_psych = train_test_split(
-        X_psych, y_psych, test_size = 0.3, random_state = 84)
+        X_psych, y_psych, test_size = 0.2, random_state = 84)
 
     # train-validation split
     X_train_psych, X_val_psych, y_train_psych, y_val_psych = train_test_split(
@@ -92,7 +92,7 @@ def train_test(X: pd.DataFrame):
 
     ### Splitting (2)
     X_train_narc, X_test_narc, y_train_narc, y_test_narc = train_test_split(
-        X_narc, y_narc, test_size=0.3, random_state=84
+        X_narc, y_narc, test_size=0.2, random_state=84
     )
 
     X_train_narc, X_val_narc, y_train_narc, y_val_narc = train_test_split(
@@ -101,7 +101,7 @@ def train_test(X: pd.DataFrame):
 
     ### Splitting (3)
     X_train_mach, X_test_mach, y_train_mach, y_test_mach = train_test_split(
-        X_mach, y_mach, test_size=0.3, random_state=84
+        X_mach, y_mach, test_size=0.2, random_state=84
     )
 
     X_train_mach, X_val_mach, y_train_mach, y_val_mach = train_test_split(

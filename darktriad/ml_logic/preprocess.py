@@ -48,6 +48,6 @@ def preprocess(X: pd.DataFrame) -> pd.DataFrame:
             elif df_final[col][i] == 2:
                 df_final[col][i] = 4
 
-
+    df_final.replace(0,3, inplace=True)
     # return final_dataframe
     return df_final

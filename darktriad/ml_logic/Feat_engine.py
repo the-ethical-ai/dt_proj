@@ -26,31 +26,29 @@ def feature_engineering(X: pd.DataFrame) -> pd.DataFrame:
     ### Making narcissism category
     tmp = []
     for i in X['Narcissism_Avg']:
-        if i < 2.222:
+        if i < 2.556:
             tmp.append(-1)
-        elif i >= 2.222 and i < 3.778:
+        elif i >= 2.556 and i < 3.444:
             tmp.append(0)
         else:
             tmp.append(1)
     X['Narcissism_Category'] = tmp
-
     ### Making psychopathy category
     tmp = []
     for i in X['Psychopathy_Avg']:
-        if i < 2:
+        if i < 2.333:
             tmp.append(-1)
-        elif i >= 2 and i < 4:
+        elif i >= 2.333 and i < 3.667:
             tmp.append(0)
         else:
             tmp.append(1)
     X['Psychopathy_Category'] = tmp
-
     ### Making machiavellian category
     tmp = []
     for i in X['Machiavellianism_Avg']:
-        if i < 2.222:
+        if i < 2.778:
             tmp.append(-1)
-        elif i >= 2.222 and i < 4.889:
+        elif i >= 2.778 and i < 4.556:
             tmp.append(0)
         else:
             tmp.append(1)
