@@ -11,14 +11,17 @@ from darktriad.ml_logic.Feat_engine import feature_engineering
 import requests
 
 def result_page():
+    st.header("Your result")
+    #st.write("Your result")
+    st.markdown(" ")
     
-    st.header("Page Result Content")
-    st.markdown("Hello")
+    finish()
+    #st.button("Results",on_click=finish(st.session_state.answers),key="a44")
     # Add content specific to Page 4
     # scores
     # plots
     # interpretation
-    
+
 def placement(x:int):
    if x == -1:
        st.write('You placed below the expected score')
@@ -28,17 +31,25 @@ def placement(x:int):
        st.write('You are above the expected score')
   
     
-def finish(select):
-       api_url = f'http://localhost:4000/predict?user_answers={answers}'
+def finish():
+    #answers=
+    answers=st.session_state.answers
+    api_url = f'http://localhost:5000/predict?user_answers={answers}'
 
-       response = requests.get(api_url)
-       global preds
-       preds = response.json()
+    response = requests.get(api_url)
+    global preds
+    preds = response.json()
 
+    
+    st.subheader('PSYCHOPATHY')
+    placement(preds["Psych_Pred"])
+    st.markdown(" ")
+    st.subheader('NARCISSISM')
+    placement(preds["Narc_Pred"])
+    st.markdown(" ")
+    st.subheader('MACHIAVELLIANISM')
+    placement(preds["Mach_Pred"])
+       
+    
 
-       st.write('PSYCHOPATHY')
-       placement(preds["Psych_Pred"])
-       st.write('NARCISSISM')
-       placement(preds["Narc_Pred"])
-       st.write('MACHIAVELLIANISM')
-       placement(preds["Mach_Pred"])
+    

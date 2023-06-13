@@ -35,7 +35,7 @@ def make_models():
 ticker = True
 
 def save_model(models):
-    dump(models, 'final_model.joblib')
+    dump(models, 'trained_models.joblib')
 
 def prediction(user_answers: list = None) -> list:
     print("\n⭐️ Use case: predict")
@@ -44,7 +44,7 @@ def prediction(user_answers: list = None) -> list:
     try:
         assert user_answers is not None
 
-        models = load('final_model.joblib')
+        models = load('trained_models.joblib')
         assert models is not None
         print('\n✅ Models have been loaded')
 
@@ -60,4 +60,4 @@ def prediction(user_answers: list = None) -> list:
 
 
 if __name__ == '__main__':
-    prediction([1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,1])
+    prediction()
