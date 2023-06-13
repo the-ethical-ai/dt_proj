@@ -91,38 +91,21 @@ def draw_question_dist_barplots(X: pd.DataFrame):
                     'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9', 'P1', 'P2',
                     'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9']
 
-    def plot_bar_chart(column_name):
-        column_values = X[column_name]
-        value_counts = column_values.value_counts()
-        position = column_names.index(column_name)
-        question = questions[position]
-        plt.bar(value_counts.index, value_counts.values)
-        plt.xlabel(f'Scores for question {column_name}')
-        plt.ylabel('Count')
-        plt.title(f'{column_name}: {question}')
-        plt.show()
-
-    return plot_bar_chart(X)
-
-
-
-
 def plot_results(PSY, NAR, MAC):
-    A = [1, 0, -1]
-    B = [2, 5, 1]
+
     C = ['PSYCHOPATHY', 'NARCISSISM', 'MACHIAVELLIANISM']
 
-    sns.set_style("white")  # Set the plot style to remove grid lines
+    sns.set_style("white")
 
     fig, ax = plt.subplots(figsize=(8, 6))
 
-    sns.set_palette(["lightblue", "#99FF99", "#FF9999"])  # Change the shade of green color here
+    sns.set_palette(["lightblue", "#99FF99", "#FF9999"])
 
-    positions = np.arange(len(A))
+    positions = np.arange(3)
 
-    total_height = max(B)
+    total_height = 5
 
-    ratios = [(0.1, 0.85, 0.05), (0.15, 0.75, 0.1), (0.08, 0.75, 0.17)]
+    ratios = [(0.14,0.70,0.16), (0.12,0.67,0.21), ( 0.13, 0.70,0.17)]
 
     bars = []
     for i in range(len(positions)):
@@ -133,42 +116,42 @@ def plot_results(PSY, NAR, MAC):
             if i == 0 and PSY == 1 and j == 2:
                 color = '#FF9999'
             elif i == 0 and PSY == 0 and j == 1:
-                color = '#99FF99'  # Use the same shade of green here
+                color = '#99FF99'
             elif i == 0 and PSY == -1 and j == 0:
                 color = 'lightblue'
             elif i == 1 and NAR == 1 and j == 2:
                 color = '#FF9999'
             elif i == 1 and NAR == 0 and j == 1:
-                color = '#99FF99'  # Use the same shade of green here
+                color = '#99FF99'
             elif i == 1 and NAR == -1 and j == 0:
                 color = 'lightblue'
             elif i == 2 and MAC == 1 and j == 2:
                 color = '#FF9999'
             elif i == 2 and MAC == 0 and j == 1:
-                color = '#99FF99'  # Use the same shade of green here
+                color = '#99FF99'
             elif i == 2 and MAC == -1 and j == 0:
                 color = 'lightblue'
             else:
                 color = 'gray'
 
-            bar = ax.bar(positions[i], bar_height, width=0.35, bottom=bar_bottom, color=color, edgecolor='black', linewidth=0.8, alpha=0.9, capstyle='round')
+            bar = ax.bar(positions[i], bar_height, width=0.35, bottom=bar_bottom, color=color, edgecolor='black', linewidth=0.3, alpha=0.9, capstyle='round')
             bars.append(bar)
             bar_bottom += bar_height
 
     ax.set_title('Result')
     ax.set_xticks(positions)
     ax.set_xticklabels(C)
-    ax.set_yticks(range(int(total_height)+1))  # Set y-axis ticks as whole numbers
-    ax.set_ylim(0, total_height+1)  # Set y-axis limit to include the topmost level
-    ax.yaxis.grid(False)  # Remove the grid lines from the y-axis
+    ax.set_yticks(range(int(total_height)+1))
+    ax.set_ylim(0, total_height+1)
+    ax.yaxis.grid(False)
 
     for bar_group in bars:
         for bar in bar_group:
             height = bar.get_height()
             x = bar.get_x() + bar.get_width() / 2
             y = bar.get_y() + height / 2
-            ax.annotate(f'{int(height/total_height*100)}%', xy=(x, y),
-                        xytext=(0, 0), textcoords='offset points', ha='center', va='center')
+            ax.annotate(f'{int(height / total_height * 100 + 0.5)}%', xy=(x, y), xytext=(0, 0), textcoords='offset points', ha='center', va='center')
+
     above_avg_patch = plt.Rectangle((0, 0), 1, 1, fc='#FF9999')
     avg_patch = plt.Rectangle((0, 0), 1, 1, fc='#99FF99')
     below_avg_patch = plt.Rectangle((0, 0), 1, 1, fc='lightblue')
