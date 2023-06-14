@@ -1,10 +1,6 @@
 import streamlit as st
 from darktriad.interface.result_page import result_page
 
-
-#current_page = st.session_state.get("current_page","test_page")
-start_button_clicked = False
-
 if 'counter' not in st.session_state.keys():
    st.session_state.counter = 0
 
@@ -43,26 +39,51 @@ questions = ["It's not wise to tell your secrets.",
             "Are you a US citizen?"]
 #
 def update(select):
-   answers.append(int(select))
-   st.session_state.answers = answers
-   st.session_state.counter += 1
+    if st.session_state.counter == 27:  # Check if it is the "Are you a US citizen?" question
+    # Convert the answer to 1 or 0
+        if select == 'Yes':
+            select = 1
+        else:
+            select = 0
+    answers.append(int(select))
+    st.session_state.answers = answers
+    st.session_state.counter += 1
 
 global preds
 
 
 def show_q_a(i):
-   select = st.selectbox(
-       f"{i+1})  {questions[i]}",
-       ('Select a number', '1', '2', '3', '4', '5')
-   )
-   if select != 'Select a number':
+   if i == 27:  # Check if it is the "Are you a US citizen?" question
+       select = st.selectbox(
+           f"{i+1})  {questions[i]}",
+           ('Select an option', 'Yes', 'No')
+       )
+   else:
+       select = st.selectbox(
+           f"{i+1})  {questions[i]}",
+           ('Select a number', '1', '2', '3', '4', '5')
+       )
+   if select != 'Select a number' and select != 'Select an option':
        st.write('You selected:', select)
        if (i < 27):
            name = 'Continue'
-           st.button(name, on_click=update, args=select,key='a43')
-                     
+           st.button(name, on_click=update, args=select, key='a43')
+
+def show_text():
+  
+    # Add CSS styling
+    st.markdown('<span style="font-size: 22px;">:red[1 - Strongly Disagree] &nbsp;&nbsp; :blue[2 - Disagree] &nbsp;&nbsp; :green[3 - Neutral] &nbsp;&nbsp; :orange[4 - Agree] &nbsp;&nbsp;  :violet[5 - Strongly Agree]</span>', unsafe_allow_html=True)
+    st.markdown("Trust your instincts for the most accurate results.")
+    st.markdown("Once you've finished answering all the questions, we'll generate your personalized Machiavellianism/Psychopathy/Narcissism score and compare it to the average score of other 2 traits.")
+    st.markdown("Curious to see where you stand?")
+    st.markdown("But wait, there's more! We'll also provide you with a predicted Machiavellianism/Psychopathy/Narcissism score based on your responses. Unleash your inner strategist and uncover the hidden aspects of your personality.")
+    st.markdown("Ready to dive in? Begin the assessment now and unlock a fascinating glimpse into your Machiavellianism/Psychopathy/Narcissism score. Let's get started!")
+
+
 def test_page():
-    #st.header("Bla bla")
+    show_text()
     show_q_a(st.session_state.counter)
     st.markdown(f"You are at question: {st.session_state.counter+1} out of 28")
+
     st.write(answers)
+

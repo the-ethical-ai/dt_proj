@@ -13,6 +13,7 @@ xgboost
 wheel
 cmake
 lightgbm
+country_converter
 
 google-cloud-storage
 pyarrow

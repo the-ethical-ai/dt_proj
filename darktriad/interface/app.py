@@ -9,15 +9,13 @@ from darktriad.interface.result_page import result_page
 
 start_button_clicked = False
 
-
-
 ###############################Working###################################
 
 st.title("Dark Triad Assessment")
 
 def onNextPage():
     st.session_state['selection'] += 1
-    
+
 def reset():
     st.session_state['selection'] = 0
 
@@ -30,6 +28,7 @@ if 'counter' not in st.session_state.keys():
 # Sidebar navigation or menu selection
 
 page = st.sidebar.selectbox("Select Page", ("Introduction", "Questionnaire", "Take the survey", "See Results"), index=st.session_state['selection'])
+
 
 # Display the selected page
 if page == "Introduction":

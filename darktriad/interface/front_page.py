@@ -1,5 +1,7 @@
 import streamlit as st
-#from darktriad.params import IMG_PATH
+from pathlib import Path
+
+parent_path = Path(__file__).parent.parent
 
 def front_page():
     # st.header("Page Front Content")
@@ -20,5 +22,5 @@ def show_initial_text():
     st.markdown(" ")
 
     # Display an image from a file
-    image_file = "../images/image_front.jpg"
+    image_file = Path(parent_path, "images", "image_front.jpg").absolute().as_posix()
     st.image(image_file, caption="Image Caption", use_column_width=True)
