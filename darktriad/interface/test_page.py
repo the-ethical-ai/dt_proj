@@ -84,3 +84,6 @@ def test_page():
     show_text()
     show_q_a(st.session_state.counter)
     st.markdown(f"You are at question: {st.session_state.counter+1} out of 28")
+
+    st.write(answers)
+
