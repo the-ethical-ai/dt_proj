@@ -55,10 +55,10 @@ def finish():
     st.subheader('MACHIAVELLIANISM')
     placement(preds["Mach_Pred"])
        
-    st.pyplot(plot_results())
+
+    st.pyplot(plot_results(answers))
 
     st.plotly_chart(draw_bubble_plot())
 
     st.plotly_chart(draw_map())
 
-    
