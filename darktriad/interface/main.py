@@ -62,5 +62,5 @@ def prediction(user_answers: list = None) -> list:
 
 
 if __name__ == '__main__':
-    prediction([5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1])
+    prediction()
 

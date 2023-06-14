@@ -41,6 +41,7 @@ elif page == "Take the survey":
     test_page()
     if st.session_state.counter == 27:
         next_page_test = st.button('Next Page', on_click=onNextPage)
+        #st.balloons()
 elif page == "See your Results":
     result_page()
     go_back = st.button('Go Back', on_click=reset)

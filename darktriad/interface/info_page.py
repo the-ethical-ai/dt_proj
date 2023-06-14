@@ -15,23 +15,13 @@ def info_page():
     # short descriptions
     links = "[Machiavellianism](https://en.wikipedia.org/wiki/Machiavellianism_(psychology))&nbsp;&nbsp;[Narcissism](https://en.wikipedia.org/wiki/Narcissism)&nbsp;&nbsp;[Psychopathy](https://en.wikipedia.org/wiki/Psychopathy)"
     st.markdown(f"""
-        - Not familiar with the terms? Check this out: 
-        - &nbsp;{links}
+        - Not familiar with the terms? Check this out:&nbsp;{links}
         - Our aim is to provide you insights about your personality with just a few clicks!""")
     
     st.divider()
-    st.markdown("")
     st.markdown("Disclaimer: Any personality disorder can only be diagnosed by mental health professionals.")
 
-   
 
-    
-
-    # Add new line
-    st.markdown(" ")
-    st.markdown(" ")
-    st.markdown(" ")
-    st.markdown(" ")
 
     # image_file = Path(parent_path, "images", "7nmpjd.gif").absolute().as_posix()
     # st.image(image_file, caption="Image Caption", use_column_width=True)
