@@ -101,9 +101,77 @@ def draw_question_dist_barplots(X: pd.DataFrame):
         plt.ylabel('Count')
         plt.title(f'{column_name}: {question}')
         plt.show()
+    plot_bar_chart(X)
 
-    return plot_bar_chart(X)
+### Draws the Average Question Scores scatterplot (bubble plots)
+def draw_bubble_plot():
+    df = pd.read_csv("https://raw.githubusercontent.com/Habeus-Crimpus/Dark_Triad/main/data.csv",delimiter = '\t')
+    df.drop_duplicates(inplace = True)
+    df.dropna(inplace=True)
+    df.drop("source", axis=1, inplace = True)
+    flip_cols = ['N2', 'N6', 'N8', 'P2', 'P4', 'P7']
+    for col in flip_cols:
+        for i in df[col]:
+            if df[col][i] == 1:
+                df[col][i] = 5
+            elif df[col][i] == 5:
+                df[col][i] = 1
+            elif df[col][i] == 4:
+                df[col][i] = 2
+            elif df[col][i] == 2:
+                df[col][i] = 4
+    df.replace(0,3, inplace=True)
+    df.drop(columns = 'country', inplace = True)
+    narcis_df = df[['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9']]
+    mach_df = df[['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9']]
+    psych_df = df[['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9']]
+    question_avg_scores = df.mean(axis = 0).reset_index()
+    trait_type = ['Machiavellianism', 'Machiavellianism', 'Machiavellianism', 'Machiavellianism',
+              'Machiavellianism', 'Machiavellianism', 'Machiavellianism', 'Machiavellianism',
+              'Machiavellianism', 'Narcissism','Narcissism', 'Narcissism', 'Narcissism',
+              'Narcissism', 'Narcissism', 'Narcissism', 'Narcissism', 'Narcissism',
+              'Psychopathy', 'Psychopathy', 'Psychopathy', 'Psychopathy', 'Psychopathy',
+              'Psychopathy', 'Psychopathy', 'Psychopathy', 'Psychopathy']
+    question_avg_scores['Trait_Type'] = trait_type
+    question_avg_scores.rename(columns = {0: 'Average_Score'}, inplace=True)
+    question_avg_scores.Average_Score = question_avg_scores.Average_Score.round(3)
+    color_map = {'Machiavellianism': 'rgb(7, 28, 105)',
+             'Narcissism': 'rgb(2, 168, 10)',
+             'Psychopathy': 'rgb(133, 9, 32)'}
 
+    bubble_fig = px.scatter(question_avg_scores,
+                            x = 'index',
+                            y = 'Average_Score',
+                            size = 'Average_Score',
+                            color = 'Trait_Type',
+                            symbol = 'Trait_Type',
+                            opacity = [1],
+                            hover_name = 'index',
+                            color_discrete_map = color_map)
+
+
+    bubble_fig.update_layout(title = dict(text="Average Scores by Question",
+                                 font = dict(size=30),
+                                 automargin = True,
+                                 yref = 'paper'),
+                      title_x = 0.5,
+                      title_font_color = 'white',
+                      title_font_family = 'balto',
+                      plot_bgcolor = 'rgb(36,36,36)',
+                      xaxis = dict(title = 'Questions', range=[-1, 27], dtick=0.5,
+                                   showticklabels = False,
+                                   tickcolor = 'white',
+                                   title_font=dict(size=18, family='balto',
+                                                   color = 'white')),
+                      yaxis = dict(title = 'Scores', range=[1, 5], dtick=1,
+                                   showticklabels = True,
+                                   tickcolor = 'white',
+                                   title_font=dict(size=18, family='balto',
+                                                   color = 'white')),
+                      legend = dict(font=dict(color='white')),
+                      paper_bgcolor = 'rgba(0,0,0,0)')
+
+    bubble_fig.show()
 
 def plot_results(PSY, NAR, MAC):
     C = ['PSYCHOPATHY', 'NARCISSISM', 'MACHIAVELLIANISM']
@@ -173,3 +241,4 @@ def plot_results(PSY, NAR, MAC):
 
 
     plt.show()
+
