@@ -27,20 +27,20 @@ if 'counter' not in st.session_state.keys():
 
 # Sidebar navigation or menu selection
 
-page = st.sidebar.selectbox("Select Page", ("Introduction", "Questionnaire", "Take the survey", "See Results"), index=st.session_state['selection'])
+page = st.sidebar.selectbox("Select Page", ("Introduction", "Questionnaire explained", "Take the survey", "See your Results"), index=st.session_state['selection'])
 
 
 # Display the selected page
 if page == "Introduction":
     info_page()
     next_page_info = st.button('Next Page', on_click=onNextPage)
-elif page == "Questionnaire":
+elif page == "Questionnaire explained":
     front_page()
     next_page_front = st.button('Next Page', on_click=onNextPage)
 elif page == "Take the survey":
     test_page()
     if st.session_state.counter == 27:
         next_page_test = st.button('Next Page', on_click=onNextPage)
-elif page == "See Results":
+elif page == "See your Results":
     result_page()
     go_back = st.button('Go Back', on_click=reset)
