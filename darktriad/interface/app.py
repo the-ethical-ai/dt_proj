@@ -13,7 +13,7 @@ start_button_clicked = False
 
 ###############################Working###################################
 
-st.title("Dark Triad App")
+st.title("Dark Triad Assessment")
 
 def onNextPage():
     st.session_state['selection'] += 1
@@ -29,19 +29,19 @@ if 'counter' not in st.session_state.keys():
 
 # Sidebar navigation or menu selection
 
-page = st.sidebar.selectbox("Select Page", ("Info", "Front", "Test", "Result"), index=st.session_state['selection'])
+page = st.sidebar.selectbox("Select Page", ("Introduction", "Questionnaire", "Take the survey", "See Results"), index=st.session_state['selection'])
 
 # Display the selected page
-if page == "Info":
+if page == "Introduction":
     info_page()
     next_page_info = st.button('Next Page', on_click=onNextPage)
-elif page == "Front":
+elif page == "Questionnaire":
     front_page()
     next_page_front = st.button('Next Page', on_click=onNextPage)
-elif page == "Test":
+elif page == "Take the survey":
     test_page()
     if st.session_state.counter == 27:
         next_page_test = st.button('Next Page', on_click=onNextPage)
-elif page == "Result":
+elif page == "See Results":
     result_page()
     go_back = st.button('Go Back', on_click=reset)
