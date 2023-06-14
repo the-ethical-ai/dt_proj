@@ -53,7 +53,7 @@ def finish():
     st.subheader('MACHIAVELLIANISM')
     placement(preds["Mach_Pred"])
 
-    plot_results()
+    plot_results(answers)
 
     draw_bubble_plot()
 
