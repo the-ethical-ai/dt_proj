@@ -8,13 +8,14 @@ import plotly.graph_objects as go
 #from params import DATA_PATH
 from darktriad.ml_logic.preprocess import preprocess
 from darktriad.ml_logic.Feat_engine import feature_engineering
+from darktriad.ml_logic.graphs import draw_map, draw_question_dist_barplots, draw_bubble_plot, plot_results
 import requests
 
 def result_page():
     st.header("Your result")
     #st.write("Your result")
     st.markdown(" ")
-    
+
     finish()
     #st.button("Results",on_click=finish(st.session_state.answers),key="a44")
     # Add content specific to Page 4
@@ -29,11 +30,11 @@ def placement(x:int):
        st.write('You are within the expected range')
    else:
        st.write('You are above the expected score')
-  
-    
+
+
 def finish():
     #answers=
-    
+
     answers=st.session_state.answers
     api_url = f'http://localhost:5000/predict?user_answers={answers}'
     st.write(answers)
@@ -42,7 +43,7 @@ def finish():
     global preds
     preds = response.json()
 
-    
+
     st.subheader('PSYCHOPATHY')
     placement(preds["Psych_Pred"])
     st.markdown(" ")
@@ -51,7 +52,9 @@ def finish():
     st.markdown(" ")
     st.subheader('MACHIAVELLIANISM')
     placement(preds["Mach_Pred"])
-       
-    
 
-    
+    plot_results()
+
+    draw_bubble_plot()
+
+    draw_map()
