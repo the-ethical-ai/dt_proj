@@ -176,15 +176,16 @@ def draw_bubble_plot():
 def plot_results(PSY, NAR, MAC):
     C = ['PSYCHOPATHY', 'NARCISSISM', 'MACHIAVELLIANISM']
 
+
     sns.set_style("white")
 
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(11, 8))
 
     sns.set_palette(["lightblue", "#99FF99", "#FF9999"])
 
     positions = np.arange(3)
 
-    total_height = 5
+    total_height = 4
 
     ratios = [(0.14,0.70,0.16), (0.12,0.67,0.21), ( 0.13, 0.70,0.17)]
 
@@ -224,6 +225,8 @@ def plot_results(PSY, NAR, MAC):
     ax.set_xticklabels(C)
     ax.set_yticks(range(int(total_height)+1))
     ax.set_ylim(0, total_height+1)
+    ax.set_yticklabels(['Strongly Disgree', 'Disagree', 'Neutral', 'Agree','Strongly Agree'])
+
     ax.yaxis.grid(False)
 
     for bar_group in bars:
