@@ -11,9 +11,10 @@ from darktriad.ml_logic.Feat_engine import feature_engineering
 import requests
 
 def result_page():
-    st.header("Your result")
+    st.balloons()
+    st.header("Your personal result")
     #st.write("Your result")
-    st.markdown(" ")
+    #st.markdown(" ")
     
     finish()
     #st.button("Results",on_click=finish(st.session_state.answers),key="a44")
@@ -32,16 +33,17 @@ def placement(x:int):
   
     
 def finish():
-    #answers=
+    
     
     answers=st.session_state.answers
     api_url = f'http://localhost:5000/predict?user_answers={answers}'
-    st.write(answers)
+    #st.write(answers)
 
     response = requests.get(api_url)
     global preds
     preds = response.json()
 
+    st.divider()
     
     st.subheader('PSYCHOPATHY')
     placement(preds["Psych_Pred"])
