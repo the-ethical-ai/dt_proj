@@ -19,6 +19,9 @@ def preprocess(X: pd.DataFrame) -> pd.DataFrame:
     # Remove the "source" column
     df_afterremove = data_wo_na.drop("source", axis=1)
 
+    # Replace zeros with 3
+    df_afterremove.replace(0,3, inplace=True)
+
     # Create a new column "US_resident" based on the "country" column
     df_afterremove['US_resident'] = np.where(df_afterremove["country"] == "US", 1, 0)
 
@@ -48,6 +51,5 @@ def preprocess(X: pd.DataFrame) -> pd.DataFrame:
             elif df_final[col][i] == 2:
                 df_final[col][i] = 4
 
-    df_final.replace(0,3, inplace=True)
     # return final_dataframe
     return df_final
