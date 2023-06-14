@@ -159,16 +159,18 @@ def draw_question_dist_barplots(question):
         position = column_names.index(column_name)
         question = questions[position]
         if column_name[0] == 'M':
-            plt.bar(value_counts.index, value_counts.values, color = 'blue')
+            fig = plt.bar(value_counts.index, value_counts.values, color = 'blue')
         elif column_name[0] == 'N':
-            plt.bar(value_counts.index, value_counts.values, color = 'green')
+            fig = plt.bar(value_counts.index, value_counts.values, color = 'green')
         else:
-            plt.bar(value_counts.index, value_counts.values, color = 'red')
+            fig = plt.bar(value_counts.index, value_counts.values, color = 'red')
         plt.xlabel(f'Scores for question {column_name}', weight = 'black')
         plt.ylabel('Count', weight = 'black')
         plt.title(f'{column_name}: {question}', weight = 'bold', size = 15)
-        plt.show()
-    plot_bar_chart(question)
+        #plt.show()
+        return fig
+    #plot_bar_chart(question)
+    return plot_bar_chart(question)
 
 ### Draws the Average Question Scores scatterplot (bubble plots)
 def draw_bubble_plot():
@@ -238,7 +240,8 @@ def draw_bubble_plot():
                       legend = dict(font=dict(color='white')),
                       paper_bgcolor = 'rgba(0,0,0,0)')
 
-    bubble_fig.show()
+    #bubble_fig.show()
+    return bubble_fig
 
 def plot_results(user_answer):
 
@@ -317,6 +320,7 @@ def plot_results(user_answer):
     ax.legend([above_avg_patch, avg_patch, below_avg_patch], ['Above average', 'Average', 'Below average'])
 
 
-    plt.show()
+    #plt.show()
+    return fig
 
-plot_results()
+#plot_results()
