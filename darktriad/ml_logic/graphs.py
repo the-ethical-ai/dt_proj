@@ -9,7 +9,8 @@ import pandas as pd
 import plotly.express as px
 import country_converter as coco
 import matplotlib.pyplot as plt
-
+import seaborn as sns
+import numpy as np
 
 ### DRAWS MAP OF THE WORLD WITH AVERAGE SCORES SHOWN
 # This expects the raw dataframe (i.e. X = pd.read(URL))
@@ -100,7 +101,6 @@ def draw_question_dist_barplots(X: pd.DataFrame):
         plt.ylabel('Count')
         plt.title(f'{column_name}: {question}')
         plt.show()
-
     plot_bar_chart(X)
 
 ### Draws the Average Question Scores scatterplot (bubble plots)
@@ -172,3 +172,73 @@ def draw_bubble_plot():
                       paper_bgcolor = 'rgba(0,0,0,0)')
 
     bubble_fig.show()
+
+def plot_results(PSY, NAR, MAC):
+    C = ['PSYCHOPATHY', 'NARCISSISM', 'MACHIAVELLIANISM']
+
+    sns.set_style("white")
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+
+    sns.set_palette(["lightblue", "#99FF99", "#FF9999"])
+
+    positions = np.arange(3)
+
+    total_height = 5
+
+    ratios = [(0.14,0.70,0.16), (0.12,0.67,0.21), ( 0.13, 0.70,0.17)]
+
+    bars = []
+    for i in range(len(positions)):
+        bar_bottom = 0
+        for j, ratio in enumerate(ratios[i]):
+            bar_height = ratio * total_height
+
+            if i == 0 and PSY == 1 and j == 2:
+                color = '#FF9999'
+            elif i == 0 and PSY == 0 and j == 1:
+                color = '#99FF99'
+            elif i == 0 and PSY == -1 and j == 0:
+                color = 'lightblue'
+            elif i == 1 and NAR == 1 and j == 2:
+                color = '#FF9999'
+            elif i == 1 and NAR == 0 and j == 1:
+                color = '#99FF99'
+            elif i == 1 and NAR == -1 and j == 0:
+                color = 'lightblue'
+            elif i == 2 and MAC == 1 and j == 2:
+                color = '#FF9999'
+            elif i == 2 and MAC == 0 and j == 1:
+                color = '#99FF99'
+            elif i == 2 and MAC == -1 and j == 0:
+                color = 'lightblue'
+            else:
+                color = 'gray'
+
+            bar = ax.bar(positions[i], bar_height, width=0.35, bottom=bar_bottom, color=color, edgecolor='black', linewidth=0.3, alpha=0.9, capstyle='round')
+            bars.append(bar)
+            bar_bottom += bar_height
+
+    ax.set_title('Result')
+    ax.set_xticks(positions)
+    ax.set_xticklabels(C)
+    ax.set_yticks(range(int(total_height)+1))
+    ax.set_ylim(0, total_height+1)
+    ax.yaxis.grid(False)
+
+    for bar_group in bars:
+        for bar in bar_group:
+            height = bar.get_height()
+            x = bar.get_x() + bar.get_width() / 2
+            y = bar.get_y() + height / 2
+            ax.annotate(f'{int(height / total_height * 100 + 0.5)}%', xy=(x, y), xytext=(0, 0), textcoords='offset points', ha='center', va='center')
+
+    above_avg_patch = plt.Rectangle((0, 0), 1, 1, fc='#FF9999')
+    avg_patch = plt.Rectangle((0, 0), 1, 1, fc='#99FF99')
+    below_avg_patch = plt.Rectangle((0, 0), 1, 1, fc='lightblue')
+
+    ax.legend([above_avg_patch, avg_patch, below_avg_patch], ['Above average', 'Average', 'Below average'])
+
+
+    plt.show()
+

@@ -44,7 +44,9 @@ def prediction(user_answers: list = None) -> list:
     try:
         assert user_answers is not None
 
+
         models = load('models.joblib')
+
         assert models is not None
         print('\n✅ Models have been loaded')
 
@@ -61,3 +63,4 @@ def prediction(user_answers: list = None) -> list:
 
 if __name__ == '__main__':
     prediction([5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1])
+
