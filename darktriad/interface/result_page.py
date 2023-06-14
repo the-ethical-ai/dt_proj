@@ -11,6 +11,13 @@ from darktriad.ml_logic.Feat_engine import feature_engineering
 import requests
 from darktriad.ml_logic.graphs import draw_map, draw_question_dist_barplots, draw_bubble_plot, plot_results
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+PORT = os.getenv('PORT')
+
 def result_page():
     st.balloons()
     st.header("Your personal result")
@@ -36,8 +43,12 @@ def placement(x:int):
 def finish():
     
     answers=st.session_state.answers
+<<<<<<< Updated upstream
     st.write(answers)
     api_url = f'http://localhost:5000/predict?user_answers={answers}'
+=======
+    api_url = f'http://localhost:{PORT}/predict?user_answers={answers}'
+>>>>>>> Stashed changes
     #st.write(answers)
 
     response = requests.get(api_url)

@@ -13,6 +13,13 @@ import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 import json
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+PORT = os.getenv('PORT')
+
 app = FastAPI()
 
 # Allowing all middleware is optional, but good practice for dev purposes
@@ -67,4 +74,4 @@ async def root():
     return {"message": "BASE"}
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=5000)
+    uvicorn.run(app, host='0.0.0.0', port=PORT)
