@@ -5,6 +5,8 @@ This file holds functions that draw different plots
 ### IMPORTING LIBRARIES/PACKAGES
 from darktriad.ml_logic.preprocess import preprocess
 from darktriad.ml_logic.Feat_engine import feature_engineering
+from darktriad.ml_logic.performance_eval import pred
+from joblib import load
 import pandas as pd
 import plotly.express as px
 import country_converter as coco
@@ -14,7 +16,8 @@ import numpy as np
 
 ### DRAWS MAP OF THE WORLD WITH AVERAGE SCORES SHOWN
 # This expects the raw dataframe (i.e. X = pd.read(URL))
-def draw_map(X: pd.DataFrame):
+def draw_map():
+    X = pd.read_csv("https://raw.githubusercontent.com/Habeus-Crimpus/Dark_Triad/main/data.csv",delimiter = '\t')
     X = preprocess(X)
     X = feature_engineering(X)
     X['Overall_Avg'] = X[['Narcissism_Avg', 'Psychopathy_Avg', 'Machiavellianism_Avg']].mean(axis = 1).round(3)
@@ -54,7 +57,8 @@ def draw_map(X: pd.DataFrame):
 
 ### DRAWS THE BARPLOTS SHOWING DISTRIBUTION OF SCORES PER QUESTION
 # NOT CURRENTLY WORKING!!! NEEDS TO BE ADAPTED FOR USE WITH STREAMLIT
-def draw_question_dist_barplots(X: pd.DataFrame):
+def draw_question_dist_barplots():
+    X = pd.read_csv("https://raw.githubusercontent.com/Habeus-Crimpus/Dark_Triad/main/data.csv",delimiter = '\t')
     X = preprocess(X)
     X = feature_engineering(X)
 
@@ -173,7 +177,14 @@ def draw_bubble_plot():
 
     bubble_fig.show()
 
-def plot_results(PSY, NAR, MAC):
+def plot_results():
+
+    tmp = load("models.joblib")
+    predicted_vals = pred(tmp)
+    PSY = predicted_vals[0]
+    NAR = predicted_vals[1]
+    MAC = predicted_vals[2]
+
     C = ['PSYCHOPATHY', 'NARCISSISM', 'MACHIAVELLIANISM']
 
 
@@ -244,4 +255,3 @@ def plot_results(PSY, NAR, MAC):
 
 
     plt.show()
-
