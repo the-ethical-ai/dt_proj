@@ -14,11 +14,14 @@ start_button_clicked = False
 st.title("Dark Triad Assessment")
 
 def onNextPage():
-    st.session_state['selection'] += 1
+    if st.session_state['selection'] == 3:
+        st.session_state['selection'] = 0
+    else:
+        st.session_state['selection'] += 1
 
 def reset():
     st.session_state['selection'] = 0
-
+    
 if 'selection' not in st.session_state:
     st.session_state['selection'] = 0
 
@@ -27,8 +30,16 @@ if 'counter' not in st.session_state.keys():
 
 # Sidebar navigation or menu selection
 
-page = st.sidebar.selectbox("Select Page", ("Introduction", "Questionnaire explained", "Take the survey", "See your Results"), index=st.session_state['selection'])
-
+page = st.sidebar.selectbox(
+    "Select Page",
+    (
+        "Introduction",
+        "Questionnaire explained",
+        "Take the survey",
+        "See your Results"
+    ),
+    index=st.session_state['selection']
+)
 
 # Display the selected page
 if page == "Introduction":

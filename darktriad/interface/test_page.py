@@ -9,6 +9,7 @@ if 'answers' not in st.session_state.keys():
 global answers
 answers = st.session_state.answers
 #
+
 questions = ["It's not wise to tell your secrets.",
             "I like to use clever manipulation to get my way.",
             "Whatever it takes, you must get the important people on your side. ",
@@ -72,16 +73,17 @@ def show_q_a(i):
 def show_text():
   
     # Add CSS styling
-    st.markdown('<span style="font-size: 22px;">:red[1 - Strongly Disagree] &nbsp;&nbsp; :blue[2 - Disagree] &nbsp;&nbsp; :green[3 - Neutral] &nbsp;&nbsp; :orange[4 - Agree] &nbsp;&nbsp;  :violet[5 - Strongly Agree]</span>', unsafe_allow_html=True)
+    
     st.markdown("Trust your instincts for the most accurate results.")
     st.markdown("Once you've finished answering all the questions, we'll generate your personalized Machiavellianism/Psychopathy/Narcissism score and compare it to the average score of other 2 traits.")
     st.markdown("Curious to see where you stand?")
     st.markdown("But wait, there's more! We'll also provide you with a predicted Machiavellianism/Psychopathy/Narcissism score based on your responses. Unleash your inner strategist and uncover the hidden aspects of your personality.")
     st.markdown("Ready to dive in? Begin the assessment now and unlock a fascinating glimpse into your Machiavellianism/Psychopathy/Narcissism score. Let's get started!")
-
+    st.markdown('<span style="font-size: 22px;">:red[1 - Strongly Disagree] &nbsp;&nbsp; :blue[2 - Disagree] &nbsp;&nbsp; :green[3 - Neutral] &nbsp;&nbsp; :orange[4 - Agree] &nbsp;&nbsp;  :violet[5 - Strongly Agree]</span>', unsafe_allow_html=True)
 
 def test_page():
     show_text()
+    st.write("Questions")
     show_q_a(st.session_state.counter)
     st.markdown(f"You are at question: {st.session_state.counter+1} out of 28")
 
