@@ -21,7 +21,7 @@ def onNextPage():
 
 def reset():
     st.session_state['selection'] = 0
-    
+
 if 'selection' not in st.session_state:
     st.session_state['selection'] = 0
 

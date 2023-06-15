@@ -216,29 +216,34 @@ def draw_bubble_plot():
                             symbol = 'Trait_Type',
                             opacity = [1],
                             hover_name = 'index',
-                            color_discrete_map = color_map)
-
+                            color_discrete_map = color_map,
+                            labels={
+                                'index': 'Questions'
+                            })
 
     bubble_fig.update_layout(title = dict(text="Average Scores by Question",
                                  font = dict(size=30),
                                  automargin = True,
                                  yref = 'paper'),
-                      title_x = 0.5,
+                      title_x = 0.2,
                       title_font_color = 'white',
                       title_font_family = 'balto',
                       plot_bgcolor = 'rgb(36,36,36)',
-                      xaxis = dict(title = 'Questions', range=[-1, 27], dtick=0.5,
-                                   showticklabels = False,
-                                   tickcolor = 'white',
-                                   title_font=dict(size=18, family='balto',
-                                                   color = 'white')),
+                      xaxis = dict(
+                                    title = 'Questions',
+                                    dtick=0.5, range=[-1, 27],
+                                    tickcolor = 'white',
+                                    title_font=dict(size=28, family='balto',
+                                    color = 'white')
+                                ),
                       yaxis = dict(title = 'Scores', range=[1, 5], dtick=1,
                                    showticklabels = True,
                                    tickcolor = 'white',
-                                   title_font=dict(size=18, family='balto',
+                                   title_font=dict(size=28, family='balto',
                                                    color = 'white')),
                       legend = dict(font=dict(color='white')),
                       paper_bgcolor = 'rgba(0,0,0,0)')
+
 
     #bubble_fig.show()
     return bubble_fig
