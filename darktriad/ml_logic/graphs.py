@@ -50,7 +50,7 @@ def draw_map():
                                  font=dict(size=30),
                                  automargin=True,
                                  yref='paper'),
-                      title_x = 0.5,
+                      title_x = 0.1,
                       title_font_color = 'white',
                       title_font_family = 'balto',
                       plot_bgcolor='black',
