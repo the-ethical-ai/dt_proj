@@ -14,20 +14,23 @@ start_button_clicked = False
 st.title("Dark Triad Assessment")
 
 def onNextPage():
-    if st.session_state['selection'] == 3:
-        st.session_state['selection'] = 0
+    if st.session_state['currentPage'] == 3:
+        st.session_state['currentPage'] = 0
     else:
-        st.session_state['selection'] += 1
+        st.session_state['currentPage'] += 1
 
 def reset():
-    st.session_state['selection'] = 0
+    st.session_state['currentPage'] = 0
     
-if 'selection' not in st.session_state:
-    st.session_state['selection'] = 0
+if 'currentPage' not in st.session_state:
+    st.session_state['currentPage'] = 0
 
-if 'counter' not in st.session_state.keys():
-    st.session_state.counter = 0
-
+if 'currentQuestion' not in st.session_state:
+    st.session_state['currentQuestion'] = 0
+    
+if 'answers' not in st.session_state:
+    st.session_state.answers = []
+    
 # Sidebar navigation or menu selection
 
 page = st.sidebar.selectbox(
@@ -38,7 +41,7 @@ page = st.sidebar.selectbox(
         "Take the survey",
         "See your Results"
     ),
-    index=st.session_state['selection']
+    index=st.session_state['currentPage']
 )
 
 # Display the selected page
@@ -50,8 +53,8 @@ elif page == "Questionnaire explained":
     next_page_front = st.button('Next Page', on_click=onNextPage)
 elif page == "Take the survey":
     test_page()
-    if st.session_state.counter == 27:
-        next_page_test = st.button('Next Page', on_click=onNextPage)
+    if st.session_state['currentQuestion'] == 28:
+        next_page_test = st.button('See Your Results', on_click=onNextPage)
         #st.balloons()
 elif page == "See your Results":
     result_page()

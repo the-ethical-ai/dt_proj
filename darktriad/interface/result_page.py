@@ -36,7 +36,7 @@ def placement(x:int):
 def finish():
     
     answers=st.session_state.answers
-    st.write(answers)
+    #st.write(answers)
     api_url = f'http://localhost:5000/predict?user_answers={answers}'
     #st.write(answers)
 
