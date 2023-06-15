@@ -54,7 +54,7 @@ def draw_map():
                       title_font_color = 'white',
                       title_font_family = 'balto',
                       plot_bgcolor='black',
-                      paper_bgcolor = 'rgba(100,100,100,100)')  # controls the transparency of the background
+                      paper_bgcolor = 'rgba(0,0,0,0)')  # controls the transparency of the background
     return fig
 
 ### DRAWS THE BARPLOTS SHOWING DISTRIBUTION OF SCORES PER QUESTION
