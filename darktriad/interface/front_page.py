@@ -13,11 +13,12 @@ def front_page():
 def show_initial_text():
     st.subheader("Questionnaire Overview")
     st.markdown("""
-        This **interactive web interface** offers a quick and engaging way to assess your psychopatic, narcistic, and Machiavellian tendencies. No lengthy explanations or excessive reading required!
-        Simply answer 28 questions by selecting a score from 1(disagree) to 5 (agree). It's as easy as giving your honest opinion.
-    """)
+        This **interactive web interface** offers a quick and engaging way to assess your :red[psychopatic, narcistic, and Machiavellian tendencies]. 
+        No lengthy explanations or excessive reading required!
+        
+        """)
 
-    st.markdown(" ")
+    st.markdown("Simply answer 28 questions by selecting a score from :red[1  (strongly disagree)] to :violet[5 (strongly agree)]. It's as easy as giving your honest opinion.")
     st.markdown(" ")
     st.markdown(" ")
 
