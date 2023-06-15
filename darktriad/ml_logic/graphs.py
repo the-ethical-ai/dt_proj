@@ -226,7 +226,7 @@ def draw_bubble_plot():
                       title_x = 0.5,
                       title_font_color = 'white',
                       title_font_family = 'balto',
-                      plot_bgcolor = 'rgb(36,36,36)',
+                      plot_bgcolor = 'rgb(183,183,183)',
                       xaxis = dict(title = 'Questions', range=[-1, 27], dtick=0.5,
                                    showticklabels = False,
                                    tickcolor = 'white',
@@ -238,7 +238,7 @@ def draw_bubble_plot():
                                    title_font=dict(size=18, family='balto',
                                                    color = 'white')),
                       legend = dict(font=dict(color='white')),
-                      paper_bgcolor = 'rgba(0,0,0,0)')
+                      paper_bgcolor = 'rgba(10,10,10,10)')
 
     #bubble_fig.show()
     return bubble_fig
