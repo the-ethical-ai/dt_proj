@@ -43,6 +43,7 @@ def placement(x:int):
 def finish():
     answers=st.session_state.answers
     api_url = f'http://localhost:{PORT}/predict?user_answers={answers}'
+
     #st.write(answers)
 
     response = requests.get(api_url)
