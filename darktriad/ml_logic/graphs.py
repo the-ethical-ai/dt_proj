@@ -18,9 +18,11 @@ import numpy as np
 # This expects the raw dataframe (i.e. X = pd.read(URL))
 def draw_map():
     X = pd.read_csv("https://raw.githubusercontent.com/Habeus-Crimpus/Dark_Triad/main/data.csv",delimiter = '\t')
+    country = X.country
     X = preprocess(X)
     X = feature_engineering(X)
     X['Overall_Avg'] = X[['Narcissism_Avg', 'Psychopathy_Avg', 'Machiavellianism_Avg']].mean(axis = 1).round(3)
+    X['country'] = country
     X = X[['country', 'Narcissism_Avg', 'Psychopathy_Avg', 'Machiavellianism_Avg', 'Overall_Avg']]
     tmp = X.groupby('country').mean()
     tmp.reset_index(inplace=True)
@@ -52,7 +54,7 @@ def draw_map():
                       title_font_color = 'white',
                       title_font_family = 'balto',
                       plot_bgcolor='black',
-                      paper_bgcolor = 'rgba(0,0,0,0)')  # controls the transparency of the background
+                      paper_bgcolor = 'rgba(100,100,100,100)')  # controls the transparency of the background
     return fig
 
 ### DRAWS THE BARPLOTS SHOWING DISTRIBUTION OF SCORES PER QUESTION
