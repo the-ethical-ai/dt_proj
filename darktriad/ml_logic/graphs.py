@@ -18,9 +18,11 @@ import numpy as np
 # This expects the raw dataframe (i.e. X = pd.read(URL))
 def draw_map():
     X = pd.read_csv("https://raw.githubusercontent.com/Habeus-Crimpus/Dark_Triad/main/data.csv",delimiter = '\t')
+    country = X.country
     X = preprocess(X)
     X = feature_engineering(X)
     X['Overall_Avg'] = X[['Narcissism_Avg', 'Psychopathy_Avg', 'Machiavellianism_Avg']].mean(axis = 1).round(3)
+    X['country'] = country
     X = X[['country', 'Narcissism_Avg', 'Psychopathy_Avg', 'Machiavellianism_Avg', 'Overall_Avg']]
     tmp = X.groupby('country').mean()
     tmp.reset_index(inplace=True)
@@ -52,15 +54,74 @@ def draw_map():
                       title_font_color = 'white',
                       title_font_family = 'balto',
                       plot_bgcolor='black',
-                      paper_bgcolor = 'rgba(0,0,0,0)')  # controls the transparency of the background
+                      paper_bgcolor = 'rgba(100,100,100,100)')  # controls the transparency of the background
     return fig
 
 ### DRAWS THE BARPLOTS SHOWING DISTRIBUTION OF SCORES PER QUESTION
 # NOT CURRENTLY WORKING!!! NEEDS TO BE ADAPTED FOR USE WITH STREAMLIT
-def draw_question_dist_barplots():
-    X = pd.read_csv("https://raw.githubusercontent.com/Habeus-Crimpus/Dark_Triad/main/data.csv",delimiter = '\t')
-    X = preprocess(X)
-    X = feature_engineering(X)
+def draw_question_dist_barplots(question):
+    import warnings
+
+    # Suppress all warnings
+    warnings.filterwarnings('ignore')
+
+    df = pd.read_csv("https://raw.githubusercontent.com/Habeus-Crimpus/Dark_Triad/main/data.csv",delimiter = '\t')
+    df.drop_duplicates(inplace = True)
+    df.dropna(inplace=True)
+    df.drop("source", axis=1, inplace = True)
+    flip_cols = ['N2', 'N6', 'N8', 'P2', 'P4', 'P7']
+    for col in flip_cols:
+        for i in df[col]:
+            if df[col][i] == 1:
+                df[col][i] = 5
+            elif df[col][i] == 5:
+                df[col][i] = 1
+            elif df[col][i] == 4:
+                df[col][i] = 2
+            elif df[col][i] == 2:
+                df[col][i] = 4
+    df.replace(0,3, inplace=True)
+    df.drop(columns = 'country', inplace = True)
+    narcis_df = df[['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9']]
+    mach_df = df[['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9']]
+    psych_df = df[['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9']]
+    # Calculating the average score per trait per user
+    df['Narcissism_Avg'] = narcis_df.mean(axis=1).round(3)
+    df['Psychopathy_Avg'] = psych_df.mean(axis=1).round(3)
+    df['Machiavellianism_Avg'] = mach_df.mean(axis=1).round(3)
+    # -1 means below typical range
+    # 0 means typical range
+    # 1 means above typical range
+    ### Making narcissism category
+    tmp = []
+    for i in df['Narcissism_Avg']:
+        if i < 2.556:
+            tmp.append(-1)
+        elif i >= 2.556 and i < 3.444:
+            tmp.append(0)
+        else:
+            tmp.append(1)
+    df['Narcissism_Category'] = tmp
+    ### Making psychopathy category
+    tmp = []
+    for i in df['Psychopathy_Avg']:
+        if i < 2.333:
+            tmp.append(-1)
+        elif i >= 2.333 and i < 3.667:
+            tmp.append(0)
+        else:
+            tmp.append(1)
+    df['Psychopathy_Category'] = tmp
+    ### Making machiavellian category
+    tmp = []
+    for i in df['Machiavellianism_Avg']:
+        if i < 2.778:
+            tmp.append(-1)
+        elif i >= 2.778 and i < 4.556:
+            tmp.append(0)
+        else:
+            tmp.append(1)
+    df['Machiavellianism_Category'] = tmp
 
     questions = ["It's not wise to tell your secrets.",
                  "I like to use clever manipulation to get my way.",
@@ -90,22 +151,28 @@ def draw_question_dist_barplots():
                  "I enjoy having sex with people I hardly know.",
                  "I'll say anything to get what I want.",
                  "Are you a US citizen?"]
-
     column_names = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'N1',
                     'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9', 'P1', 'P2',
                     'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9']
 
     def plot_bar_chart(column_name):
-        column_values = X[column_name]
+        column_values = df[column_name]
         value_counts = column_values.value_counts()
         position = column_names.index(column_name)
         question = questions[position]
-        plt.bar(value_counts.index, value_counts.values)
-        plt.xlabel(f'Scores for question {column_name}')
-        plt.ylabel('Count')
-        plt.title(f'{column_name}: {question}')
-        plt.show()
-    plot_bar_chart(X)
+        if column_name[0] == 'M':
+            fig = plt.bar(value_counts.index, value_counts.values, color = 'blue')
+        elif column_name[0] == 'N':
+            fig = plt.bar(value_counts.index, value_counts.values, color = 'green')
+        else:
+            fig = plt.bar(value_counts.index, value_counts.values, color = 'red')
+        plt.xlabel(f'Scores for question {column_name}', weight = 'black')
+        plt.ylabel('Count', weight = 'black')
+        plt.title(f'{column_name}: {question}', weight = 'bold', size = 15)
+        #plt.show()
+        return fig
+    #plot_bar_chart(question)
+    return plot_bar_chart(question)
 
 ### Draws the Average Question Scores scatterplot (bubble plots)
 def draw_bubble_plot():
@@ -161,7 +228,7 @@ def draw_bubble_plot():
                       title_x = 0.5,
                       title_font_color = 'white',
                       title_font_family = 'balto',
-                      plot_bgcolor = 'rgb(36,36,36)',
+                      plot_bgcolor = 'rgb(183,183,183)',
                       xaxis = dict(title = 'Questions', range=[-1, 27], dtick=0.5,
                                    showticklabels = False,
                                    tickcolor = 'white',
@@ -173,14 +240,15 @@ def draw_bubble_plot():
                                    title_font=dict(size=18, family='balto',
                                                    color = 'white')),
                       legend = dict(font=dict(color='white')),
-                      paper_bgcolor = 'rgba(0,0,0,0)')
+                      paper_bgcolor = 'rgba(10,10,10,10)')
 
-    bubble_fig.show()
+    #bubble_fig.show()
+    return bubble_fig
 
-def plot_results():
+def plot_results(user_answer):
 
     tmp = load("models.joblib")
-    predicted_vals = pred(tmp)
+    predicted_vals = pred(tmp, user_answer)
     PSY = predicted_vals[0]
     NAR = predicted_vals[1]
     MAC = predicted_vals[2]
@@ -254,4 +322,7 @@ def plot_results():
     ax.legend([above_avg_patch, avg_patch, below_avg_patch], ['Above average', 'Average', 'Below average'])
 
 
-    plt.show()
+    #plt.show()
+    return fig
+
+#plot_results()

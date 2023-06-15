@@ -11,12 +11,19 @@ from darktriad.ml_logic.Feat_engine import feature_engineering
 import requests
 from darktriad.ml_logic.graphs import draw_map, draw_question_dist_barplots, draw_bubble_plot, plot_results
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+PORT = os.getenv('PORT')
+
 def result_page():
     st.balloons()
     st.header("Your personal result")
     #st.write("Your result")
     #st.markdown(" ")
-    
+
     finish()
     #st.button("Results",on_click=finish(st.session_state.answers),key="a44")
     # Add content specific to Page 4
@@ -31,13 +38,12 @@ def placement(x:int):
        st.write('You are within the expected range')
    else:
        st.write('You are above the expected score')
-  
-    
+
+
 def finish():
-    
     answers=st.session_state.answers
-    #st.write(answers)
-    api_url = f'http://localhost:5000/predict?user_answers={answers}'
+    api_url = f'http://localhost:{PORT}/predict?user_answers={answers}'
+
     #st.write(answers)
 
     response = requests.get(api_url)
@@ -45,7 +51,7 @@ def finish():
     preds = response.json()
 
     st.divider()
-    
+
     st.subheader('PSYCHOPATHY')
     placement(preds["Psych_Pred"])
     st.markdown(" ")
@@ -54,11 +60,10 @@ def finish():
     st.markdown(" ")
     st.subheader('MACHIAVELLIANISM')
     placement(preds["Mach_Pred"])
-       
-    st.pyplot(plot_results())
+
+
+    st.pyplot(plot_results(answers))
 
     st.plotly_chart(draw_bubble_plot())
 
     st.plotly_chart(draw_map())
-
-    
