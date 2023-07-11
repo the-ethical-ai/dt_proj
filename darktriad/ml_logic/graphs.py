@@ -58,7 +58,6 @@ def draw_map():
     return fig
 
 ### DRAWS THE BARPLOTS SHOWING DISTRIBUTION OF SCORES PER QUESTION
-# NOT CURRENTLY WORKING!!! NEEDS TO BE ADAPTED FOR USE WITH STREAMLIT
 def draw_question_dist_barplots(question):
     import warnings
 
