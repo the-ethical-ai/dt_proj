@@ -1,28 +1,18 @@
-# Dark Triad Classification Project Overview
+# Dark Triad Classification App
 
-Available at: https://darktriad1.streamlit.app/
+<div id="header" align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExczZ2Y3M1MXJhem5lbHVobmtsa3o1cGNuYXJ4a3FhamVoMmJwMmt3cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26AHJYHOV2Ogby6Eo/giphy-downsized-large.gif" width="400"/>
+</div>
 
-## TL;DR
+App available at: https://darktriad1.streamlit.app/
 
-**Goal:**
+*Disclaimer: The app may at times be unavailable for updates or due to inactivity. If so, the latest version can be viewed by refreshing the app (doable at the above link).*
 
-- Predict score category for dark triad traits based on SD3 questionnaire.
+## Overview of the Project
 
-**Languages/Applications Used:**
+Utilizing the SD3 questionnaire, a 28-question survey designed to quantify a person's relative levels of narcissistic, Machiavellian, and psychopathic traits, the app allows users to take the survey and gain insight into how their scores were within expected ranges. The app was demoed at the Le Wagon Munich Demo Day in June 2023. A video of the presentation is available here: https://drive.google.com/file/d/1lJbLL8r0s6-Z8hFgd1gkpvZohidu7LwY/view.
 
-- Python (EDA, data visualization, machine learning, user-interface, api-creation)
-- GitHub (project organization, version control)
-- Jupyter Notebook (code testing)
+**Team Details:**
 
-**Team Overview:**
-
-- **Team Members:** Tyler Chang, Laura Schopp, Imge Ildan, and Saikot Das Joy
+- **Team Members:** Tyler Chang (lead), Laura Schopp, Imge Ildan, and Saikot Das Joy
 - **Project Development Time:** 9 days
-
-**How to Use:**
-
-We recommend using the following to run the files.
-
-* To run the api from the terminal or command window, use python darktriad/api/fast.py
-* To run the app locally from the terminal or command window, use streamlit run darktriad/interface/app.py
-* All files in darktriad/ml_logic should run locally and are ready for further use.
